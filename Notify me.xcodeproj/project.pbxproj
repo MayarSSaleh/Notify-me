@@ -62,18 +62,146 @@
 		7D781E232C37C90F0012C399 /* Notify me */ = {
 			isa = PBXGroup;
 			children = (
+				7D781E432C37F8D80012C399 /* services */,
+				7D781E3F2C37F88F0012C399 /* model */,
+				7D781E3E2C37F8830012C399 /* view */,
+				7D781E422C37F8CB0012C399 /* modules */,
 				7D781E242C37C90F0012C399 /* AppDelegate.swift */,
 				7D781E262C37C90F0012C399 /* SceneDelegate.swift */,
-				7D781E282C37C90F0012C399 /* ViewController.swift */,
-				7D781E2A2C37C90F0012C399 /* Main.storyboard */,
 				7D781E2D2C37C9130012C399 /* Assets.xcassets */,
-				7D781E2F2C37C9130012C399 /* LaunchScreen.storyboard */,
 				7D781E322C37C9130012C399 /* Info.plist */,
-				7D781E382C37D7320012C399 /* CalenderViewController.swift */,
-				7D781E3A2C37D7410012C399 /* TimeIntervalViewController.swift */,
-				7D781E3C2C37D77C0012C399 /* MapViewController.swift */,
 			);
 			path = "Notify me";
+			sourceTree = "<group>";
+		};
+		7D781E3E2C37F8830012C399 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				7D781E2A2C37C90F0012C399 /* Main.storyboard */,
+				7D781E2F2C37C9130012C399 /* LaunchScreen.storyboard */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		7D781E3F2C37F88F0012C399 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		7D781E422C37F8CB0012C399 /* modules */ = {
+			isa = PBXGroup;
+			children = (
+				7D781E4D2C37F9580012C399 /* timeInterval */,
+				7D781E4A2C37F93B0012C399 /* calender */,
+				7D781E472C37F91C0012C399 /* map */,
+				7D781E442C37F9020012C399 /* Home */,
+			);
+			path = modules;
+			sourceTree = "<group>";
+		};
+		7D781E432C37F8D80012C399 /* services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = services;
+			sourceTree = "<group>";
+		};
+		7D781E442C37F9020012C399 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				7D781E462C37F90C0012C399 /* viewModel */,
+				7D781E452C37F9080012C399 /* view */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		7D781E452C37F9080012C399 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				7D781E282C37C90F0012C399 /* ViewController.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		7D781E462C37F90C0012C399 /* viewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = viewModel;
+			sourceTree = "<group>";
+		};
+		7D781E472C37F91C0012C399 /* map */ = {
+			isa = PBXGroup;
+			children = (
+				7D781E492C37F9330012C399 /* viewModel */,
+				7D781E482C37F9290012C399 /* view */,
+			);
+			path = map;
+			sourceTree = "<group>";
+		};
+		7D781E482C37F9290012C399 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				7D781E3C2C37D77C0012C399 /* MapViewController.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		7D781E492C37F9330012C399 /* viewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = viewModel;
+			sourceTree = "<group>";
+		};
+		7D781E4A2C37F93B0012C399 /* calender */ = {
+			isa = PBXGroup;
+			children = (
+				7D781E4C2C37F9480012C399 /* viewModel */,
+				7D781E4B2C37F9440012C399 /* view */,
+			);
+			path = calender;
+			sourceTree = "<group>";
+		};
+		7D781E4B2C37F9440012C399 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				7D781E382C37D7320012C399 /* CalenderViewController.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		7D781E4C2C37F9480012C399 /* viewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = viewModel;
+			sourceTree = "<group>";
+		};
+		7D781E4D2C37F9580012C399 /* timeInterval */ = {
+			isa = PBXGroup;
+			children = (
+				7D781E4F2C37F9660012C399 /* viewModel */,
+				7D781E4E2C37F9610012C399 /* view */,
+			);
+			path = timeInterval;
+			sourceTree = "<group>";
+		};
+		7D781E4E2C37F9610012C399 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				7D781E3A2C37D7410012C399 /* TimeIntervalViewController.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		7D781E4F2C37F9660012C399 /* viewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = viewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

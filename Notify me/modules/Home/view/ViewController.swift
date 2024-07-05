@@ -7,7 +7,6 @@
 
 import UIKit
 import UserNotifications
-import CoreLocation
 
 // make 3 options
     // + sign
@@ -18,22 +17,16 @@ import CoreLocation
     // delete , update option?
 
 
-class ViewController: UIViewController, UNUserNotificationCenterDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     @IBOutlet weak var table: UITableView!
     
     let userNotificationCenter = UNUserNotificationCenter.current()
-    let locationManager = CLLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.userNotificationCenter.delegate = self
-        self.locationManager.delegate = self
-        
         self.requestNotificationAuthorization()
-        self.locationManager.requestWhenInUseAuthorization()
-         
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -41,17 +34,18 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, CLLoca
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner, .badge, .sound])
+        completionHandler([.banner, .sound])
     }
 
     
     func requestNotificationAuthorization() {
-        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        let authOptions: UNAuthorizationOptions = [.alert, .sound]
         
         self.userNotificationCenter.requestAuthorization(options: authOptions) { (success, error) in
             if let error = error {
                 print("Error: ", error)
             }
+        
         }
     }
     
@@ -101,8 +95,4 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, CLLoca
             }
       }
       
-//    func resetBadgeCount() {
-//           UIApplication.shared.applicationIconBadgeNumber = 0
-//           UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-//       }
 }

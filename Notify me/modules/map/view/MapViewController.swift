@@ -9,13 +9,16 @@ import UIKit
 import CoreLocation
 import UserNotifications
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController , CLLocationManagerDelegate {
+    let locationManager = CLLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
        // self.userNotificationCenter.delegate = self
 
         // Do any additional setup after loading the view.
+        self.locationManager.delegate = self
+        self.locationManager.requestWhenInUseAuthorization()
     }
     
     @IBAction func back(_ sender: Any) {
