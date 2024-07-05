@@ -1,24 +1,231 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Notify me-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Notify_me" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EyX-rc-Qe1">
+                                <rect key="frame" x="0.0" y="55" width="393" height="44"/>
+                                <items>
+                                    <navigationItem title="Notify me" id="7ru-Cw-eBk">
+                                        <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="z9O-0D-VgS">
+                                            <connections>
+                                                <action selector="add:" destination="BYZ-38-t0r" id="aeV-1J-44v"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="qEg-7Y-yN6">
+                                <rect key="frame" x="0.0" y="99" width="393" height="753"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="JzT-4v-OTi">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JzT-4v-OTi" id="SGv-K5-Oap">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="EyX-rc-Qe1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="HQX-c9-9zr"/>
+                            <constraint firstItem="qEg-7Y-yN6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="VSD-Wl-FQ2"/>
+                            <constraint firstItem="EyX-rc-Qe1" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="55" id="Vkf-L2-qbR"/>
+                            <constraint firstAttribute="bottom" secondItem="qEg-7Y-yN6" secondAttribute="bottom" id="bYR-Je-QSh"/>
+                            <constraint firstItem="qEg-7Y-yN6" firstAttribute="top" secondItem="EyX-rc-Qe1" secondAttribute="bottom" id="era-7k-VCe"/>
+                            <constraint firstItem="qEg-7Y-yN6" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="exq-eQ-zey"/>
+                            <constraint firstItem="EyX-rc-Qe1" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="s6F-9S-cSw"/>
+                        </constraints>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Notify me" id="3p7-8K-Oti">
+                        <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="4bq-zX-UAK"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1973.2824427480916" y="-34.507042253521128"/>
+        </scene>
+        <!--Time Interval View Controller-->
+        <scene sceneID="gnL-rn-d4x">
+            <objects>
+                <viewController storyboardIdentifier="TimeIntervalViewController" id="XKw-56-mcw" customClass="TimeIntervalViewController" customModule="Notify_me" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aDm-wX-Y1N">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TimeIntervalViewController" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OIQ-Z8-TWh">
+                                <rect key="frame" x="93.666666666666686" y="415.66666666666669" width="206" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rCz-ro-oxg">
+                                <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                                <items>
+                                    <navigationItem title="Add notification after period" id="Rye-Pa-erV">
+                                        <barButtonItem key="leftBarButtonItem" image="arrowshape.turn.up.backward.fill" catalog="system" id="80C-r7-vmP">
+                                            <color key="tintColor" systemColor="linkColor"/>
+                                            <connections>
+                                                <action selector="back:" destination="XKw-56-mcw" id="hAy-DY-FBM"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="RPk-rx-RbF"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="OIQ-Z8-TWh" firstAttribute="centerY" secondItem="aDm-wX-Y1N" secondAttribute="centerY" id="V9V-rZ-iZA"/>
+                            <constraint firstItem="rCz-ro-oxg" firstAttribute="leading" secondItem="RPk-rx-RbF" secondAttribute="leading" id="VPo-js-WaL"/>
+                            <constraint firstItem="rCz-ro-oxg" firstAttribute="top" secondItem="RPk-rx-RbF" secondAttribute="top" id="m4y-db-TFU"/>
+                            <constraint firstItem="OIQ-Z8-TWh" firstAttribute="centerX" secondItem="aDm-wX-Y1N" secondAttribute="centerX" id="mz4-Vs-aGo"/>
+                            <constraint firstItem="rCz-ro-oxg" firstAttribute="trailing" secondItem="RPk-rx-RbF" secondAttribute="trailing" id="p3o-Iv-p6F"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Igu-p8-SLk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2767" y="-35"/>
+        </scene>
+        <!--Calender View Controller-->
+        <scene sceneID="acw-le-K7a">
+            <objects>
+                <viewController storyboardIdentifier="CalenderViewController" id="QNS-Gd-sOI" customClass="CalenderViewController" customModule="Notify_me" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HRl-Ac-LTU">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CalenderViewController" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M62-sf-WCl">
+                                <rect key="frame" x="106" y="415.66666666666669" width="181" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Es2-9n-U8y">
+                                <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                                <items>
+                                    <navigationItem title="Add notification at calender" id="Q00-Cp-DYd">
+                                        <barButtonItem key="leftBarButtonItem" image="arrowshape.turn.up.backward.fill" catalog="system" id="HIo-OH-MkE">
+                                            <color key="tintColor" systemColor="linkColor"/>
+                                            <connections>
+                                                <action selector="back:" destination="QNS-Gd-sOI" id="iEH-Yr-MXZ"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ZJs-S9-AfL"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Es2-9n-U8y" firstAttribute="top" secondItem="ZJs-S9-AfL" secondAttribute="top" id="5Hg-kH-4yo"/>
+                            <constraint firstItem="M62-sf-WCl" firstAttribute="centerX" secondItem="HRl-Ac-LTU" secondAttribute="centerX" id="OI9-72-vIV"/>
+                            <constraint firstItem="Es2-9n-U8y" firstAttribute="leading" secondItem="ZJs-S9-AfL" secondAttribute="leading" id="VXU-8F-dSA"/>
+                            <constraint firstItem="Es2-9n-U8y" firstAttribute="trailing" secondItem="ZJs-S9-AfL" secondAttribute="trailing" id="WYh-o2-80y"/>
+                            <constraint firstItem="M62-sf-WCl" firstAttribute="centerY" secondItem="HRl-Ac-LTU" secondAttribute="centerY" id="lCk-my-YwJ"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9rh-8Z-WO8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3637" y="-35"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="3BS-oK-YdB">
+            <objects>
+                <viewController storyboardIdentifier="MapViewController" id="fh1-2b-pcK" customClass="MapViewController" customModule="Notify_me" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zcn-R0-Vvb">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uAB-rg-x82">
+                                <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                                <items>
+                                    <navigationItem title="Add notification at location" id="xuh-Yj-3PB">
+                                        <barButtonItem key="leftBarButtonItem" image="arrowshape.turn.up.backward.fill" catalog="system" id="2Lz-xZ-Gbo">
+                                            <color key="tintColor" systemColor="linkColor"/>
+                                            <connections>
+                                                <action selector="back:" destination="fh1-2b-pcK" id="mpp-g1-zDp"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YBt-Iz-tHi">
+                                <rect key="frame" x="0.0" y="103" width="393" height="655"/>
+                                <standardMapConfiguration key="preferredConfiguration"/>
+                            </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Around by how many metter?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ce-rp-Ayf">
+                                <rect key="frame" x="16" y="766" width="224" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="25 " textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="amU-oU-gBt">
+                                <rect key="frame" x="248" y="784" width="97" height="38.333333333333371"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="wTV-l3-HRa"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6ce-rp-Ayf" firstAttribute="top" secondItem="YBt-Iz-tHi" secondAttribute="bottom" constant="8" symbolic="YES" id="880-6X-HmU"/>
+                            <constraint firstItem="amU-oU-gBt" firstAttribute="top" secondItem="YBt-Iz-tHi" secondAttribute="bottom" constant="26" id="8Zk-Zh-2ve"/>
+                            <constraint firstItem="wTV-l3-HRa" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6ce-rp-Ayf" secondAttribute="trailing" symbolic="YES" id="CVz-1x-NZl"/>
+                            <constraint firstItem="uAB-rg-x82" firstAttribute="leading" secondItem="wTV-l3-HRa" secondAttribute="leading" id="HMk-AJ-SzK"/>
+                            <constraint firstItem="YBt-Iz-tHi" firstAttribute="leading" secondItem="wTV-l3-HRa" secondAttribute="leading" id="HPW-iu-HoI"/>
+                            <constraint firstItem="uAB-rg-x82" firstAttribute="trailing" secondItem="wTV-l3-HRa" secondAttribute="trailing" id="OYu-Mz-Y7k"/>
+                            <constraint firstItem="YBt-Iz-tHi" firstAttribute="width" secondItem="zcn-R0-Vvb" secondAttribute="height" multiplier="131:284" id="Ohg-aq-mIX"/>
+                            <constraint firstItem="YBt-Iz-tHi" firstAttribute="leading" secondItem="wTV-l3-HRa" secondAttribute="leading" id="VFS-Fv-lCL"/>
+                            <constraint firstItem="6ce-rp-Ayf" firstAttribute="leading" secondItem="wTV-l3-HRa" secondAttribute="leading" constant="16" id="dGD-JA-Cw1"/>
+                            <constraint firstItem="YBt-Iz-tHi" firstAttribute="trailing" secondItem="wTV-l3-HRa" secondAttribute="trailing" id="dYx-lb-iMk"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="amU-oU-gBt" secondAttribute="bottom" constant="-4.3333333333333712" id="dr9-gK-G5L"/>
+                            <constraint firstItem="uAB-rg-x82" firstAttribute="top" secondItem="wTV-l3-HRa" secondAttribute="top" id="gvJ-Pv-QTL"/>
+                            <constraint firstItem="YBt-Iz-tHi" firstAttribute="trailing" secondItem="wTV-l3-HRa" secondAttribute="trailing" id="mQE-2d-uzc"/>
+                            <constraint firstItem="wTV-l3-HRa" firstAttribute="bottom" secondItem="YBt-Iz-tHi" secondAttribute="bottom" constant="60" id="upa-Gn-zRD"/>
+                            <constraint firstItem="wTV-l3-HRa" firstAttribute="trailing" secondItem="amU-oU-gBt" secondAttribute="trailing" constant="48" id="uwQ-gz-z9O"/>
+                            <constraint firstItem="amU-oU-gBt" firstAttribute="leading" secondItem="wTV-l3-HRa" secondAttribute="leading" constant="248" id="yGS-Iw-Oct"/>
+                            <constraint firstItem="YBt-Iz-tHi" firstAttribute="top" secondItem="uAB-rg-x82" secondAttribute="bottom" id="zR6-2Z-ldd"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BhD-N3-VWC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4467.93893129771" y="-35.211267605633807"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="arrowshape.turn.up.backward.fill" catalog="system" width="128" height="104"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
