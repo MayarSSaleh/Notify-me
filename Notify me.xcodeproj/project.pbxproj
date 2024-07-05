@@ -16,6 +16,7 @@
 		7D781E392C37D7320012C399 /* CalenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D781E382C37D7320012C399 /* CalenderViewController.swift */; };
 		7D781E3B2C37D7410012C399 /* TimeIntervalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D781E3A2C37D7410012C399 /* TimeIntervalViewController.swift */; };
 		7D781E3D2C37D77C0012C399 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D781E3C2C37D77C0012C399 /* MapViewController.swift */; };
+		7D781E512C380D710012C399 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D781E502C380D710012C399 /* Animation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		7D781E382C37D7320012C399 /* CalenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderViewController.swift; sourceTree = "<group>"; };
 		7D781E3A2C37D7410012C399 /* TimeIntervalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalViewController.swift; sourceTree = "<group>"; };
 		7D781E3C2C37D77C0012C399 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		7D781E502C380D710012C399 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			children = (
 				7D781E2A2C37C90F0012C399 /* Main.storyboard */,
 				7D781E2F2C37C9130012C399 /* LaunchScreen.storyboard */,
+				7D781E502C380D710012C399 /* Animation.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				7D781E292C37C90F0012C399 /* ViewController.swift in Sources */,
 				7D781E252C37C90F0012C399 /* AppDelegate.swift in Sources */,
 				7D781E272C37C90F0012C399 /* SceneDelegate.swift in Sources */,
+				7D781E512C380D710012C399 /* Animation.swift in Sources */,
 				7D781E3B2C37D7410012C399 /* TimeIntervalViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
