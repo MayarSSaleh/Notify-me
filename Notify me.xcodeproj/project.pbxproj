@@ -17,6 +17,8 @@
 		7D781E3B2C37D7410012C399 /* TimeIntervalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D781E3A2C37D7410012C399 /* TimeIntervalViewController.swift */; };
 		7D781E3D2C37D77C0012C399 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D781E3C2C37D77C0012C399 /* MapViewController.swift */; };
 		7D781E512C380D710012C399 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D781E502C380D710012C399 /* Animation.swift */; };
+		7D781E532C381DE80012C399 /* NotificationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D781E522C381DE80012C399 /* NotificationDetails.swift */; };
+		7D781E582C381FD20012C399 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D781E572C381FD20012C399 /* Navigation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		7D781E3A2C37D7410012C399 /* TimeIntervalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalViewController.swift; sourceTree = "<group>"; };
 		7D781E3C2C37D77C0012C399 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		7D781E502C380D710012C399 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
+		7D781E522C381DE80012C399 /* NotificationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetails.swift; sourceTree = "<group>"; };
+		7D781E572C381FD20012C399 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,7 @@
 		7D781E232C37C90F0012C399 /* Notify me */ = {
 			isa = PBXGroup;
 			children = (
+				7D781E562C381FB30012C399 /* utility */,
 				7D781E432C37F8D80012C399 /* services */,
 				7D781E3F2C37F88F0012C399 /* model */,
 				7D781E3E2C37F8830012C399 /* view */,
@@ -96,6 +101,7 @@
 		7D781E422C37F8CB0012C399 /* modules */ = {
 			isa = PBXGroup;
 			children = (
+				7D781E542C381DF60012C399 /* NotificationDetails */,
 				7D781E4D2C37F9580012C399 /* timeInterval */,
 				7D781E4A2C37F93B0012C399 /* calender */,
 				7D781E472C37F91C0012C399 /* map */,
@@ -207,6 +213,30 @@
 			path = viewModel;
 			sourceTree = "<group>";
 		};
+		7D781E542C381DF60012C399 /* NotificationDetails */ = {
+			isa = PBXGroup;
+			children = (
+				7D781E552C381E040012C399 /* view */,
+			);
+			path = NotificationDetails;
+			sourceTree = "<group>";
+		};
+		7D781E552C381E040012C399 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				7D781E522C381DE80012C399 /* NotificationDetails.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		7D781E562C381FB30012C399 /* utility */ = {
+			isa = PBXGroup;
+			children = (
+				7D781E572C381FD20012C399 /* Navigation.swift */,
+			);
+			path = utility;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -279,10 +309,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D781E392C37D7320012C399 /* CalenderViewController.swift in Sources */,
+				7D781E532C381DE80012C399 /* NotificationDetails.swift in Sources */,
 				7D781E3D2C37D77C0012C399 /* MapViewController.swift in Sources */,
 				7D781E292C37C90F0012C399 /* ViewController.swift in Sources */,
 				7D781E252C37C90F0012C399 /* AppDelegate.swift in Sources */,
 				7D781E272C37C90F0012C399 /* SceneDelegate.swift in Sources */,
+				7D781E582C381FD20012C399 /* Navigation.swift in Sources */,
 				7D781E512C380D710012C399 /* Animation.swift in Sources */,
 				7D781E3B2C37D7410012C399 /* TimeIntervalViewController.swift in Sources */,
 			);
