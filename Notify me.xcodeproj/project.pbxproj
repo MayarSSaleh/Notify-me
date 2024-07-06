@@ -19,6 +19,7 @@
 		7D781E532C381DE80012C399 /* NotificationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D781E522C381DE80012C399 /* NotificationDetails.swift */; };
 		7D781E582C381FD20012C399 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D781E572C381FD20012C399 /* Navigation.swift */; };
 		7D797C7E2C39642F005C9E76 /* Alart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D797C7D2C39642F005C9E76 /* Alart.swift */; };
+		7DBAA41D2C3A085B0044B7CD /* Notifiaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBAA41C2C3A085B0044B7CD /* Notifiaction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		7D781E522C381DE80012C399 /* NotificationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetails.swift; sourceTree = "<group>"; };
 		7D781E572C381FD20012C399 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		7D797C7D2C39642F005C9E76 /* Alart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alart.swift; sourceTree = "<group>"; };
+		7DBAA41C2C3A085B0044B7CD /* Notifiaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifiaction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		7D781E3F2C37F88F0012C399 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				7DBAA41C2C3A085B0044B7CD /* Notifiaction.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				7D781E3D2C37D77C0012C399 /* MapViewController.swift in Sources */,
 				7D781E292C37C90F0012C399 /* ViewController.swift in Sources */,
 				7D797C7E2C39642F005C9E76 /* Alart.swift in Sources */,
+				7DBAA41D2C3A085B0044B7CD /* Notifiaction.swift in Sources */,
 				7D781E252C37C90F0012C399 /* AppDelegate.swift in Sources */,
 				7D781E272C37C90F0012C399 /* SceneDelegate.swift in Sources */,
 				7D781E582C381FD20012C399 /* Navigation.swift in Sources */,

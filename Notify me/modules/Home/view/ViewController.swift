@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         let authOptions: UNAuthorizationOptions = [.alert, .sound]
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { (success, error) in
             if let error = error {
-                Alart.showAlert(title: "without permisiion the notification will not appear", uiView: self)
+                Alert.showAlert(title: "without permisiion the notification will not appear", uiView: self)
                 print("Error: ", error)
             }
         
@@ -78,7 +78,8 @@ class ViewController: UIViewController {
       
       func navigateToLocationViewModel() {
           let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            if let vc = storyboard.instantiateViewController(withIdentifier: "MapViewController") as? MapViewController{
+            if let vc = storyboard.instantiateViewController(withIdentifier: "TimeViewController") as? TimeViewController{
+                vc.comeAsMap = true
                 vc.modalPresentationStyle = .fullScreen
                 present(vc, animated: true, completion: nil)
             }
