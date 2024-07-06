@@ -17,33 +17,21 @@ import UserNotifications
     // delete , update option?
 
 
-class ViewController: UIViewController, UNUserNotificationCenterDelegate {
+class ViewController: UIViewController {
     
     @IBOutlet weak var table: UITableView!
     
-    let userNotificationCenter = UNUserNotificationCenter.current()
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.userNotificationCenter.delegate = self
         self.requestNotificationAuthorization()
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        print("enter in the home ")
-        completionHandler()
-    }
-
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner, .sound])
-    }
-
     
     func requestNotificationAuthorization() {
         let authOptions: UNAuthorizationOptions = [.alert, .sound]
-        
-        self.userNotificationCenter.requestAuthorization(options: authOptions) { (success, error) in
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { (success, error) in
             if let error = error {
+                Alart.showAlert(title: "without permisiion the notification will not appear", uiView: self)
                 print("Error: ", error)
             }
         
@@ -52,20 +40,18 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     
     @IBAction func add(_ sender: Any) {
-   
-        print("clicked at add insert")
         let alert = UIAlertController(title: "Choose Notification Type", message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "By Location", style: .default, handler: { _ in
+        
+        alert.addAction(UIAlertAction(title: "At Time", style: .default, handler: { _ in
+            self.navigateToCalenderViewModel()
+        }))
+        alert.addAction(UIAlertAction(title: "At Location", style: .default, handler: { _ in
             self.navigateToLocationViewModel()
         }))
-        
         alert.addAction(UIAlertAction(title: "After a while", style: .default, handler: { _ in
             self.navigateToIntervalViewModel()
         }))
-        
-        alert.addAction(UIAlertAction(title: "At specific Time", style: .default, handler: { _ in
-            self.navigateToCalenderViewModel()
-        }))
+    
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -74,7 +60,8 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     func navigateToIntervalViewModel() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let vc = storyboard.instantiateViewController(withIdentifier: "TimeIntervalViewController") as? TimeIntervalViewController{
+        if let vc = storyboard.instantiateViewController(withIdentifier: "TimeViewController") as? TimeViewController{
+            vc.comeAsTimeInterval = true
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: true, completion: nil)
         }
@@ -82,7 +69,8 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
       
       func navigateToCalenderViewModel() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-          if let vc = storyboard.instantiateViewController(withIdentifier: "CalenderViewController") as? CalenderViewController{
+          if let vc = storyboard.instantiateViewController(withIdentifier: "TimeViewController") as? TimeViewController{
+              vc.comeAsTimeInterval = false
               vc.modalPresentationStyle = .fullScreen
               present(vc, animated: true, completion: nil)
           }
@@ -95,5 +83,5 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
                 present(vc, animated: true, completion: nil)
             }
       }
-      
+  
 }

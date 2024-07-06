@@ -19,7 +19,9 @@ class NotificationDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set the labels with the passed notification data
+        print(" notificationTitle\(notificationTitle)")
+        print(" notificationContent\(notificationContent)")
+
         notificationTitleLabel.text = notificationTitle
         notificationContentLabel.text = notificationContent
         

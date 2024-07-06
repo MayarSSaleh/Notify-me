@@ -5,57 +5,59 @@
 //  Created by mayar on 04/07/2024.
 //
 
+
 import UIKit
+import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+
     var window: UIWindow?
+    let notificationCenter = UNUserNotificationCenter.current()
 
-    
-//AppDelegate: Handles the notification response when the app is in the background or terminated. Sets the root view controller and navigates to the NotificationDetailViewController.
-    // Handle notification response when the app is in background or terminated
-     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-         let userInfo = response.notification.request.content.userInfo
-         
-         // Ensure your main view controller is loaded
-         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-         let initialViewController = storyboard.instantiateViewController(withIdentifier: "TimeIntervalViewController") as! TimeIntervalViewController
-         let navController = UINavigationController(rootViewController: initialViewController)
-
-         // Pass the notification data to the view controller
-         if let notificationDetailVC = storyboard.instantiateViewController(withIdentifier: "NotificationDetailViewController") as? NotificationDetailViewController {
-             notificationDetailVC.notificationTitle = response.notification.request.content.title
-             notificationDetailVC.notificationContent = response.notification.request.content.body
-             navController.pushViewController(notificationDetailVC, animated: false)
-         }else {
-             print(" in app deleget ")
-         }
-
-         window?.rootViewController = navController
-         window?.makeKeyAndVisible()
-
-         completionHandler()
-     }
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        self.requestNotificationAuthorization()
+        self.notificationCenter.delegate = self
         return true
     }
-    
-    // MARK: UISceneSession Lifecycle
 
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    // Request notification authorization
+    func requestNotificationAuthorization() {
+        let authOptions: UNAuthorizationOptions = [.alert, .sound, .badge]
+        self.notificationCenter.requestAuthorization(options: authOptions) { (granted, error) in
+            if let error = error {
+                print("Notification authorization request failed: \(error)")
+            }
+        }
     }
-
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
-
-
 }
 
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    // Handle incoming notifications while app is in foreground
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        let content = notification.request.content
+        let title = content.title
+        let body = content.body
+        
+        let alert = UIAlertController(title: title, message: body, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        if let rootViewController = self.window?.rootViewController {
+            rootViewController.present(alert, animated: true, completion: nil)
+        }
+        
+        completionHandler([.banner, .sound])
+    }
+    
+    // Handle notification interaction when user taps on notification
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print ( " interact")
+        let userInfo = response.notification.request.content.userInfo
+        // Handle any actions triggered by the user tapping on the notification
+        print("Tapped on notification while app is in foreground", userInfo)
+        
+        completionHandler()
+    }
+}
