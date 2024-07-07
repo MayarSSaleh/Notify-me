@@ -23,12 +23,14 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
     
     var comeAsTimeInterval: Bool = true
     var comeAsMap: Bool = false
-    
-    private var viewModel = CreateNotificationViewModel()
-
+    var afterTime :Int?
+    var notificationLocationName:String?
+    var viewModel = CreateNotificationViewModel()
+    var dateAndTime : String?
     var minutesPicker = UIPickerView()
     var datePicker = UIDatePicker()
     var mapView = MKMapView()
+    let geocoder = CLGeocoder()
 
     var locationManager = CLLocationManager()
     var chosenLocation: CLLocationCoordinate2D?
@@ -85,6 +87,9 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
                 labelBesidPicker.text = "At:"
                 pageTitle.title = "Add notification at a specific time"
                 datePicker.datePickerMode = .dateAndTime
+                // no repeation in the calender
+                Repeats.isHidden = true
+                repeatNotificationOutlet.isHidden = true
                 view.addSubview(datePicker)
                 addDatePickerConstraints(picker: datePicker)
             }
@@ -118,7 +123,7 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
     private func addDatePickerConstraints(picker: UIView) {
         picker.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            labelBesidPicker.topAnchor.constraint(equalTo: Repeats.bottomAnchor, constant: 70),
+            labelBesidPicker.topAnchor.constraint(equalTo: contentOfNOtifiction.bottomAnchor, constant: 70),
             picker.topAnchor.constraint(equalTo: labelBesidPicker.topAnchor, constant: 0),
             picker.leadingAnchor.constraint(equalTo: notificationTitle.leadingAnchor, constant: 0)
         ])
@@ -171,15 +176,36 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
             region.notifyOnEntry = true
             region.notifyOnExit = false
             trigger = UNLocationNotificationTrigger(region: region, repeats: repeatNotification)
+            
+            // Reverse Geocoding to get location name
+                     let location = CLLocation(latitude: chosenLocation.latitude, longitude: chosenLocation.longitude)
+                     geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+                         if let error = error {
+                             print("Reverse geocode failed: \(error.localizedDescription)")
+                             return
+                         }
+                         
+                         if let placemark = placemarks?.first {
+                             let locationName = "\(placemark.name ?? ""), \(placemark.locality ?? ""), \(placemark.country ?? "")"
+                             self.notificationLocationName = locationName
+                             print(" locationName \(self.notificationLocationName)")
+                         }
+                         
+                     }
+            
         } else {
             if comeAsTimeInterval {
                 let selectedRow = minutesPicker.selectedRow(inComponent: 0)
+                afterTime = timeIntervals[selectedRow]
                 let timeInterval = timeIntervals[selectedRow] * 60
                 trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timeInterval), repeats: repeatNotification)
             } else {
                 let selectedDate = datePicker.date
-                let triggerDate = Calendar.current.dateComponents([.hour, .minute], from: selectedDate)
-                trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: repeatNotification)
+             
+                let triggerDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: selectedDate)
+                dateAndTime = "\(triggerDate)"
+                print( "triggerDate \(triggerDate) " )
+                trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
             }
         }
         
@@ -189,10 +215,10 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
             if let error = error {
                 print("Notification Error: ", error)
             } else {
-                // get the parameter correcttly
-//                self.viewModel.saveNotification(title: title, content: body, repeatNotification: self.repeatNotification, time: self.comeAsTimeInterval, location: self.comeAsMap, locationName: "Some location", afterTime: "Some time", atTimeAndDate: "Some date")
-
+                
                 DispatchQueue.main.async {
+                    self.viewModel.saveNotification(title: title, content: body, repeatNotification: self.repeatNotification, isNotificationByTime: self.comeAsTimeInterval, isNocationByLocation: self.comeAsMap, locationName: self.notificationLocationName, afterTime: self.afterTime, atTimeAndDate: self.dateAndTime)
+
                     self.showCheckMarkAnimation(mark: "bell.circle.fill")
                     print("Notification scheduled successfully")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {

@@ -14,13 +14,13 @@ class CreateNotificationViewModel {
         self.realm = realm
     }
 
-    func saveNotification(title: String, content: String, repeatNotification: Bool, time: Bool?, location: Bool?, locationName: String?, afterTime: String?, atTimeAndDate: String?) {
+    func saveNotification(title: String, content: String, repeatNotification: Bool, isNotificationByTime: Bool?, isNocationByLocation: Bool?, locationName: String?, afterTime: Int?, atTimeAndDate: String?) {
         let notification = NotificationObject()
         notification.title = title
         notification.content = content
         notification.repeatNotification = repeatNotification
-        notification.time = time
-        notification.location = location
+        notification.isNotificationByTime = isNotificationByTime
+        notification.isNocationByLocation = isNocationByLocation
         notification.locationName = locationName
         notification.afterTime = afterTime
         notification.atTimeAndDate = atTimeAndDate
@@ -30,4 +30,3 @@ class CreateNotificationViewModel {
         }
     }
 }
-

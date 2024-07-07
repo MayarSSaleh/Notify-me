@@ -13,9 +13,9 @@ class NotificationObject: Object {
     @Persisted var title: String = ""
     @Persisted var content: String = ""
     @Persisted var repeatNotification: Bool = false
-    @Persisted var time: Bool?
-    @Persisted var location: Bool?
+    @Persisted var isNotificationByTime: Bool?
+    @Persisted var isNocationByLocation: Bool?
     @Persisted var locationName: String?
-    @Persisted var afterTime: String?
+    @Persisted var afterTime: Int?
     @Persisted var atTimeAndDate: String?
 }
