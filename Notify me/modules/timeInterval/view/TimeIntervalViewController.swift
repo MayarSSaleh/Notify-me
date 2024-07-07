@@ -148,87 +148,115 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
     }
     
     @IBAction func addNotification(_ sender: Any) {
+    
         guard let title = notificationTitle.text, !title.isEmpty,
-              let body = contentOfNOtifiction.text, !body.isEmpty else {
-            Alert.showAlert(title: "Please enter notification title and content", uiView: self)
-            return
-        }
-        
-        let notificationContent = UNMutableNotificationContent()
-        notificationContent.title = title
-        notificationContent.body = body
-        notificationContent.sound = .default
-        
-        var trigger: UNNotificationTrigger
-        
-        if comeAsMap {
-            guard let chosenLocation = chosenLocation else {
-                Alert.showAlert(title: "Please select a location on the map", uiView: self)
+                  let body = contentOfNOtifiction.text, !body.isEmpty else {
+                Alert.showAlert(title: "Please enter notification title and content", uiView: self)
                 return
             }
-            
-            guard let radiusText = raduis.text, let radiusValue = Double(radiusText) else {
-                       Alert.showAlert(title: "Please enter a valid radius for the region", uiView: self)
-                       return
-                   }
-       
-            let region = CLCircularRegion(center: chosenLocation, radius: radiusValue, identifier: UUID().uuidString)
-            region.notifyOnEntry = true
-            region.notifyOnExit = false
-            trigger = UNLocationNotificationTrigger(region: region, repeats: repeatNotification)
-            
-            // Reverse Geocoding to get location name
-                     let location = CLLocation(latitude: chosenLocation.latitude, longitude: chosenLocation.longitude)
-                     geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
-                         if let error = error {
-                             print("Reverse geocode failed: \(error.localizedDescription)")
-                             return
-                         }
-                         
-                         if let placemark = placemarks?.first {
-                             let locationName = "\(placemark.name ?? ""), \(placemark.locality ?? ""), \(placemark.country ?? "")"
-                             self.notificationLocationName = locationName
-                             print(" locationName \(self.notificationLocationName)")
-                         }
-                         
-                     }
-            
-        } else {
-            if comeAsTimeInterval {
-                let selectedRow = minutesPicker.selectedRow(inComponent: 0)
-                afterTime = timeIntervals[selectedRow]
-                let timeInterval = timeIntervals[selectedRow] * 60
-                trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timeInterval), repeats: repeatNotification)
+
+            let notificationContent = UNMutableNotificationContent()
+            notificationContent.title = title
+            notificationContent.body = body
+            notificationContent.sound = .default
+
+            var trigger: UNNotificationTrigger?
+
+            if comeAsMap {
+                guard let chosenLocation = chosenLocation else {
+                    Alert.showAlert(title: "Please select a location on the map", uiView: self)
+                    return
+                }
+
+                guard let radiusText = raduis.text, let radiusValue = Double(radiusText) else {
+                    Alert.showAlert(title: "Please enter a valid radius for the region", uiView: self)
+                    return
+                }
+
+                // Disable the add button and show an activity indicator (optional)
+                add.isEnabled = false
+                // Show activity indicator here
+
+                let region = CLCircularRegion(center: chosenLocation, radius: radiusValue, identifier: UUID().uuidString)
+                region.notifyOnEntry = true
+                region.notifyOnExit = false
+                trigger = UNLocationNotificationTrigger(region: region, repeats: repeatNotification)
+
+                // Reverse Geocoding to get location name
+                let location = CLLocation(latitude: chosenLocation.latitude, longitude: chosenLocation.longitude)
+                geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
+                    guard let self = self else { return }
+                    if let error = error {
+                        print("Reverse geocode failed: \(error.localizedDescription)")
+                        return
+                    }
+
+                    if let placemark = placemarks?.first {
+                        self.notificationLocationName = "\(placemark.name ?? ""), \(placemark.locality ?? ""), \(placemark.country ?? "")"
+                    }
+
+                    self.scheduleNotification(content: notificationContent, trigger: trigger)
+                }
             } else {
-                let selectedDate = datePicker.date
-             
-                let triggerDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: selectedDate)
-                dateAndTime = "\(triggerDate)"
-                print( "triggerDate \(triggerDate) " )
-                trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+                if comeAsTimeInterval {
+                    let selectedRow = minutesPicker.selectedRow(inComponent: 0)
+                    afterTime = timeIntervals[selectedRow]
+                    let timeInterval = timeIntervals[selectedRow] * 60
+                    trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timeInterval), repeats: repeatNotification)
+                } else {
+                    let selectedDate = datePicker.date
+                    let triggerDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: selectedDate)
+                    dateAndTime = "\(triggerDate)"
+                    trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+                }
+                scheduleNotification(content: notificationContent, trigger: trigger)
             }
         }
-        
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: notificationContent, trigger: trigger)
-        
-        userNotificationCenter.add(request) { error in
-            if let error = error {
-                print("Notification Error: ", error)
-            } else {
-                
-                DispatchQueue.main.async {
-                    self.viewModel.saveNotification(title: title, content: body, repeatNotification: self.repeatNotification, isNotificationByTime: self.comeAsTimeInterval, isNocationByLocation: self.comeAsMap, locationName: self.notificationLocationName, afterTime: self.afterTime, atTimeAndDate: self.dateAndTime)
 
-                    self.showCheckMarkAnimation(mark: "bell.circle.fill")
-                    print("Notification scheduled successfully")
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        self.dismiss(animated: true, completion: nil)
+        private func scheduleNotification(content: UNMutableNotificationContent, trigger: UNNotificationTrigger?) {
+            guard let trigger = trigger else { return }
+
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+            userNotificationCenter.add(request) { [weak self] error in
+                guard let self = self else { return }
+                if let error = error {
+                    print("Notification Error: ", error)
+                } else {
+                    DispatchQueue.main.async {
+                        print(" self.notificationLocationName\(self.notificationLocationName)")
+                        print(" afterTime: \( self.afterTime)")
+                        print("self.dateAndTime\(self.dateAndTime)")
+                        self.viewModel.saveNotification(
+                            title: content.title,
+                            content: content.body,
+                            repeatNotification: self.repeatNotification,
+                            isNotificationByTime: self.comeAsTimeInterval,
+                            isNocationByLocation: self.comeAsMap,
+                            locationName: self.notificationLocationName,
+                            afterTime: self.afterTime,
+                            atTimeAndDate: self.dateAndTime
+                        )
+
+                        self.showCheckMarkAnimation(mark: "bell.circle.fill")
+                        print("Notification scheduled successfully")
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            self.dismiss(animated: true, completion: nil)
+                        }
                     }
                 }
             }
         }
+    private func formatDateAndTime(from dateComponents: DateComponents) -> String? {
+        let calendar = Calendar.current
+        guard let date = calendar.date(from: dateComponents) else { return nil }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        
+        return dateFormatter.string(from: date)
     }
-    
+
 
     @IBAction func back(_ sender: Any) {
         dismiss(animated: true, completion: nil)

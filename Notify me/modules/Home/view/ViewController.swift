@@ -27,6 +27,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         table.dataSource = self
         table.delegate = self
+        table.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
+        
         self.requestNotificationAuthorization()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -101,13 +103,27 @@ extension ViewController :UITableViewDataSource, UITableViewDelegate {
         do {
             let realm = try Realm()
             notifications = realm.objects(NotificationObject.self)
-            print( " notifications\(notifications?.count)")
-            print( " notifications\(notifications?.first)")
-
+            backgroundImage()
+                 
             table.reloadData()
         } catch let error {
             print("Failed to fetch notifications from Realm: \(error)")
         }
+    }
+    
+   private func backgroundImage(){
+             if notifications?.isEmpty ?? true {
+                 let emptyStateImage = UIImage(named: "empty")
+                 let imageView = UIImageView(image: emptyStateImage)
+                 imageView.contentMode = .scaleAspectFit
+                 table.backgroundView = imageView
+             } else {
+                 table.backgroundView = nil
+             }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 125
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -116,19 +132,32 @@ extension ViewController :UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
         if let notification = notifications?[indexPath.row] {
-            cell.textLabel?.text = notification.title
-            cell.detailTextLabel?.text = notification.content
-//            cell.imageView?.image = UIImage(named: notify)
+            cell.setUp(titleOfNotification: notification.title, contentOfNotification: notification.content, isTime: notification.isNotificationByTime ?? true, isLocation: notification.isNocationByLocation ?? false,location: notification.locationName ?? "",timeInterval: String(notification.afterTime ?? 0),dateAndTime: notification.atTimeAndDate ?? "")
         }
         return cell
     }
     
-    // MARK: - UITableViewDelegate
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        // Handle row selection if needed
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            guard let notificationToDelete = notifications?[indexPath.row] else { return }
+            
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    print("delete notification from Realm")
+                    realm.delete(notificationToDelete)
+                }
+                
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                backgroundImage()
+            } catch let error {
+                print("Failed to delete notification from Realm: \(error)")
+                return
+            }
+            
+        }
     }
 }
