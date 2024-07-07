@@ -24,6 +24,8 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
     var comeAsTimeInterval: Bool = true
     var comeAsMap: Bool = false
     
+    private var viewModel = CreateNotificationViewModel()
+
     var minutesPicker = UIPickerView()
     var datePicker = UIDatePicker()
     var mapView = MKMapView()
@@ -187,6 +189,9 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
             if let error = error {
                 print("Notification Error: ", error)
             } else {
+                // get the parameter correcttly
+//                self.viewModel.saveNotification(title: title, content: body, repeatNotification: self.repeatNotification, time: self.comeAsTimeInterval, location: self.comeAsMap, locationName: "Some location", afterTime: "Some time", atTimeAndDate: "Some date")
+
                 DispatchQueue.main.async {
                     self.showCheckMarkAnimation(mark: "bell.circle.fill")
                     print("Notification scheduled successfully")

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D4ECCB42C3A1981003C204B /* CreateNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4ECCB32C3A1981003C204B /* CreateNotification.swift */; };
 		7D781E252C37C90F0012C399 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D781E242C37C90F0012C399 /* AppDelegate.swift */; };
 		7D781E272C37C90F0012C399 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D781E262C37C90F0012C399 /* SceneDelegate.swift */; };
 		7D781E292C37C90F0012C399 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D781E282C37C90F0012C399 /* ViewController.swift */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		30436E1DAFF9AFAB5FF0DF78 /* Pods-Notify me.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notify me.debug.xcconfig"; path = "Target Support Files/Pods-Notify me/Pods-Notify me.debug.xcconfig"; sourceTree = "<group>"; };
+		7D4ECCB32C3A1981003C204B /* CreateNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNotification.swift; sourceTree = "<group>"; };
 		7D781E212C37C90F0012C399 /* Notify me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Notify me.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D781E242C37C90F0012C399 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D781E262C37C90F0012C399 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 		7D781E4F2C37F9660012C399 /* viewModel */ = {
 			isa = PBXGroup;
 			children = (
+				7D4ECCB32C3A1981003C204B /* CreateNotification.swift */,
 			);
 			path = viewModel;
 			sourceTree = "<group>";
@@ -237,7 +240,6 @@
 				30436E1DAFF9AFAB5FF0DF78 /* Pods-Notify me.debug.xcconfig */,
 				D689B1C5562CE2F1D9396136 /* Pods-Notify me.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -360,6 +362,7 @@
 				7D781E3D2C37D77C0012C399 /* MapViewController.swift in Sources */,
 				7D781E292C37C90F0012C399 /* ViewController.swift in Sources */,
 				7D797C7E2C39642F005C9E76 /* Alart.swift in Sources */,
+				7D4ECCB42C3A1981003C204B /* CreateNotification.swift in Sources */,
 				7DBAA41D2C3A085B0044B7CD /* Notifiaction.swift in Sources */,
 				7D781E252C37C90F0012C399 /* AppDelegate.swift in Sources */,
 				7D781E272C37C90F0012C399 /* SceneDelegate.swift in Sources */,
@@ -428,7 +431,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -491,7 +494,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
