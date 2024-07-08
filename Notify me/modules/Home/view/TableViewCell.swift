@@ -21,7 +21,6 @@ class TableViewCell: UITableViewCell {
     }
     
     func setUp(titleOfNotification:String,contentOfNotification:String,isTime:Bool ,isLocation:Bool ,repeatValue:String = "", location:String =  "" ,timeInterval:String = "", dateAndTime: String = "" ){
-        
          title.text = titleOfNotification
          content.text = contentOfNotification
         if isLocation{
@@ -31,20 +30,18 @@ class TableViewCell: UITableViewCell {
             if isTime{
                 print( " is time true")
 
-                type.text = "Notification after \(timeInterval)"
+                type.text = timeInterval
             }else{
-                var modified = dateAndTime.dropLast(20)
+                let modified = dateAndTime.dropLast(20)
                 print("m \(modified)")
                 type.text = String(modified)
             }
         }
+        
        //  repeatValueWithInterval.text = repeatValue
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+  
 
-        // Configure the view for the selected state
-    }
     
 }

@@ -18,22 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let config = Realm.Configuration(
-            schemaVersion: 2, // as i changed the module so upgraude the schema
+            schemaVersion: 1,
             migrationBlock: { migration, oldSchemaVersion in
-                if oldSchemaVersion < 2 {
-                    // Rename properties
-                    migration.renameProperty(onType: NotificationObject.className(), from: "time", to: "isNotificationByTime")
-                    migration.renameProperty(onType: NotificationObject.className(), from: "location", to: "isNocationByLocation")
-                    
-                    // Change the data type of the renamed property
-                    migration.enumerateObjects(ofType: NotificationObject.className()) { oldObject, newObject in
-                        if let afterTimeString = oldObject?["afterTime"] as? String, let afterTimeInt = Int(afterTimeString) {
-                            newObject?["afterTime"] = afterTimeInt
-                        } else {
-                            newObject?["afterTime"] = 0 // default value if conversion fails
-                        }
-                    }
-                }
+             
             })
         
         Realm.Configuration.defaultConfiguration = config
@@ -46,7 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.notificationCenter.delegate = self
         return true
     }
-    
+ 
+
     // Request notification authorization
     func requestNotificationAuthorization() {
         let authOptions: UNAuthorizationOptions = [.alert, .sound, .badge]

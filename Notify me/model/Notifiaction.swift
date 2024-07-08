@@ -16,6 +16,6 @@ class NotificationObject: Object {
     @Persisted var isNotificationByTime: Bool?
     @Persisted var isNocationByLocation: Bool?
     @Persisted var locationName: String?
-    @Persisted var afterTime: Int?
+    @Persisted var afterTime: String?
     @Persisted var atTimeAndDate: String?
 }

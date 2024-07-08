@@ -123,7 +123,7 @@ extension ViewController :UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 125
+        return 140
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -134,7 +134,7 @@ extension ViewController :UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
         if let notification = notifications?[indexPath.row] {
-            cell.setUp(titleOfNotification: notification.title, contentOfNotification: notification.content, isTime: notification.isNotificationByTime ?? true, isLocation: notification.isNocationByLocation ?? false,location: notification.locationName ?? "",timeInterval: String(notification.afterTime ?? 0),dateAndTime: notification.atTimeAndDate ?? "")
+            cell.setUp(titleOfNotification: notification.title, contentOfNotification: notification.content, isTime: notification.isNotificationByTime ?? true, isLocation: notification.isNocationByLocation ?? false,location: notification.locationName ?? "",timeInterval: String(notification.afterTime ?? ""),dateAndTime: notification.atTimeAndDate ?? "")
         }
         return cell
     }

@@ -223,9 +223,6 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
                     print("Notification Error: ", error)
                 } else {
                     DispatchQueue.main.async {
-                        print(" self.notificationLocationName\(self.notificationLocationName)")
-                        print(" afterTime: \( self.afterTime)")
-                        print("self.dateAndTime\(self.dateAndTime)")
                         self.viewModel.saveNotification(
                             title: content.title,
                             content: content.body,
@@ -233,7 +230,8 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
                             isNotificationByTime: self.comeAsTimeInterval,
                             isNocationByLocation: self.comeAsMap,
                             locationName: self.notificationLocationName,
-                            afterTime: self.afterTime,
+//                            afterTime: self.afterTime,
+                            afterTime: " Notification afte \(self.getCurrentDateTime()) by: \(self.afterTime ?? 0) minutes",
                             atTimeAndDate: self.dateAndTime
                         )
 
@@ -257,7 +255,20 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
         return dateFormatter.string(from: date)
     }
 
-
+    func getCurrentDateTime() -> String {
+        let currentDate = Date()
+        
+        // Create a date formatter
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd , HH:mm "
+        
+        // Convert date to string
+        let dateTimeString = formatter.string(from: currentDate)
+        
+        print("Current date and time: \(dateTimeString)")
+        
+        return dateTimeString
+    }
     @IBAction func back(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }

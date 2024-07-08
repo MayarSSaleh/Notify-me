@@ -14,7 +14,7 @@ class CreateNotificationViewModel {
         self.realm = realm
     }
 
-    func saveNotification(title: String, content: String, repeatNotification: Bool, isNotificationByTime: Bool?, isNocationByLocation: Bool?, locationName: String?, afterTime: Int?, atTimeAndDate: String?) {
+    func saveNotification(title: String, content: String, repeatNotification: Bool, isNotificationByTime: Bool?, isNocationByLocation: Bool?, locationName: String?, afterTime: String?, atTimeAndDate: String?) {
         let notification = NotificationObject()
         notification.title = title
         notification.content = content
