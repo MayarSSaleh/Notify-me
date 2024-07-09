@@ -50,25 +50,31 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     // Handle incoming notifications while app is in foreground
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
-        let content = notification.request.content
-        let title = content.title
-        let body = content.body
-        
-        let alert = UIAlertController(title: title, message: body, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        
-        if let rootViewController = self.window?.rootViewController {
-            rootViewController.present(alert, animated: true, completion: nil)
-        }
-        
+        print(" app in for ground in app delegete")
         completionHandler([.banner, .sound])
     }
     
     // Handle notification interaction when user taps on notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         print ( " interact")
+      
         let userInfo = response.notification.request.content.userInfo
+        let title = userInfo["title"] as? String ?? "No Title"
+        let content = userInfo["body"] as? String ?? "No body"
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "NotificationDetailViewController") as! NotificationDetailViewController
+            vc.notificationTitle = title
+            vc.notificationContent = content
+            vc.modalPresentationStyle = .fullScreen
+        // Present the view controller
+             if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
+                 rootVC.present(vc, animated: true, completion: nil)
+             }else {
+                 print("enter else")
+             }
+        
+
         // Handle any actions triggered by the user tapping on the notification
         print("Tapped on notification while app is in foreground", userInfo)
         

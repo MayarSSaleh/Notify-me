@@ -21,8 +21,10 @@ class TableViewCell: UITableViewCell {
     }
     
     func setUp(titleOfNotification:String,contentOfNotification:String,isTime:Bool ,isLocation:Bool ,repeatValue:String = "", location:String =  "" ,timeInterval:String = "", dateAndTime: String = "" ){
+        
          title.text = titleOfNotification
          content.text = contentOfNotification
+        
         if isLocation{
             print( " loacation ")
             type.text = location
