@@ -13,12 +13,14 @@ class NotificationDetailViewController: UIViewController {
     @IBAction func back(_ sender: Any) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let vc = storyboard.instantiateViewController(withIdentifier: "ViewController") as? ViewController{
+        if let vc = storyboard.instantiateViewController(withIdentifier: "tabViewController") as? tabViewController{
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: true, completion: nil)
         }
         
     }
+    
+    
     @IBOutlet weak var notificationTitleLabel: UILabel!
     @IBOutlet weak var notificationContentLabel: UILabel!
     
@@ -27,11 +29,7 @@ class NotificationDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print(" notificationTitle\(notificationTitle)")
-        print(" notificationContent\(notificationContent)")
-
-        notificationTitleLabel.text = notificationTitle
+           notificationTitleLabel.text = notificationTitle
         notificationContentLabel.text = notificationContent
         
         

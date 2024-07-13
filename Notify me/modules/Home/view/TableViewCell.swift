@@ -20,7 +20,7 @@ class TableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    func setUp(titleOfNotification:String,contentOfNotification:String,isTime:Bool ,isLocation:Bool ,repeatValue:String = "", location:String =  "" ,timeInterval:String = "", dateAndTime: String = "" ){
+    func setUp(titleOfNotification:String,contentOfNotification:String,isTime:Bool ,isLocation:Bool ,repeatValue:String = "", location:String =  "" ,showingMessangeAfterTime:String = "", dateAndTime: String = "" ){
         
          title.text = titleOfNotification
          content.text = contentOfNotification
@@ -32,7 +32,7 @@ class TableViewCell: UITableViewCell {
             if isTime{
                 print( " is time true")
 
-                type.text = timeInterval
+                type.text = showingMessangeAfterTime
             }else{
                 let modified = dateAndTime.dropLast(20)
                 print("m \(modified)")

@@ -7,21 +7,11 @@
 
 import UIKit
 import UserNotifications
-import RealmSwift
-
-// make 3 options
-// + sign
-// notification by intervaol
-// notifaction by time ... chosse from the calender time with repeating
-// notifiy by location ... by map and distance from this location check the internet example
-// show list by notification in the main screen may save it by realem
-// delete , update option?
-
 
 class ViewController: UIViewController {
     
     @IBOutlet weak var table: UITableView!
-    var notifications: Results<NotificationObject>?
+    var storedNotificationViewModel = StoredNotificationViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,25 +19,30 @@ class ViewController: UIViewController {
         table.delegate = self
         table.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
         
+        storedNotificationViewModel.onNotificationsUpdated = { [weak self] in
+            DispatchQueue.main.async {
+                self?.table.reloadData()
+                self?.backgroundImage()
+            }
+        }
+        
         self.requestNotificationAuthorization()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchNotifications()
-
+        storedNotificationViewModel.fetchUpComingNotifications()
     }
     
     func requestNotificationAuthorization() {
         let authOptions: UNAuthorizationOptions = [.alert, .sound]
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { (success, error) in
             if let error = error {
-                Alert.showAlert(title: "without permisiion the notification will not appear", uiView: self)
+                Alert.showAlert(title: "Without permission the notification will not appear", uiView: self)
                 print("Error: ", error)
             }
-            
         }
     }
-    
     
     @IBAction func add(_ sender: Any) {
         let alert = UIAlertController(title: "Choose Notification Type", message: nil, preferredStyle: .alert)
@@ -62,33 +57,47 @@ class ViewController: UIViewController {
             self.navigateToIntervalViewModel()
         }))
         
-        
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
-    
-    func navigateToIntervalViewModel() {
+  
+    private func backgroundImage() {
+        if storedNotificationViewModel.upComingNotifications.isEmpty {
+            let emptyStateImage = UIImage(named: "empty")
+            let imageView = UIImageView(image: emptyStateImage)
+            imageView.contentMode = .scaleAspectFit
+            table.backgroundView = imageView
+        } else {
+            table.backgroundView = nil
+        }
+    }
+}
+
+
+// navigation
+extension ViewController {
+  private func navigateToIntervalViewModel() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let vc = storyboard.instantiateViewController(withIdentifier: "TimeViewController") as? TimeViewController{
+        if let vc = storyboard.instantiateViewController(withIdentifier: "TimeViewController") as? TimeViewController {
             vc.comeAsTimeInterval = true
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: true, completion: nil)
         }
     }
     
-    func navigateToCalenderViewModel() {
+    private  func navigateToCalenderViewModel() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let vc = storyboard.instantiateViewController(withIdentifier: "TimeViewController") as? TimeViewController{
+        if let vc = storyboard.instantiateViewController(withIdentifier: "TimeViewController") as? TimeViewController {
             vc.comeAsTimeInterval = false
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: true, completion: nil)
         }
     }
     
-    func navigateToLocationViewModel() {
+    private func navigateToLocationViewModel() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let vc = storyboard.instantiateViewController(withIdentifier: "TimeViewController") as? TimeViewController{
+        if let vc = storyboard.instantiateViewController(withIdentifier: "TimeViewController") as? TimeViewController {
             vc.comeAsMap = true
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: true, completion: nil)
@@ -97,67 +106,28 @@ class ViewController: UIViewController {
     
 }
 
-extension ViewController :UITableViewDataSource, UITableViewDelegate {
-  
-    func fetchNotifications() {
-        do {
-            let realm = try Realm()
-            notifications = realm.objects(NotificationObject.self)
-            backgroundImage()
-                 
-            table.reloadData()
-        } catch let error {
-            print("Failed to fetch notifications from Realm: \(error)")
-        }
-    }
-    
-   private func backgroundImage(){
-             if notifications?.isEmpty ?? true {
-                 let emptyStateImage = UIImage(named: "empty")
-                 let imageView = UIImageView(image: emptyStateImage)
-                 imageView.contentMode = .scaleAspectFit
-                 table.backgroundView = imageView
-             } else {
-                 table.backgroundView = nil
-             }
-    }
-    
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return notifications?.count ?? 0
+        return storedNotificationViewModel.upComingNotifications.count
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
-        if let notification = notifications?[indexPath.row] {
-            cell.setUp(titleOfNotification: notification.title, contentOfNotification: notification.content, isTime: notification.isNotificationByTime ?? true, isLocation: notification.isNocationByLocation ?? false,location: notification.locationName ?? "",timeInterval: String(notification.afterTime ?? ""),dateAndTime: notification.atTimeAndDate ?? "")
-        }
+        let notification = storedNotificationViewModel.upComingNotifications[indexPath.row]
+        cell.setUp(titleOfNotification: notification.title, contentOfNotification: notification.content, isTime: notification.isNotificationByTime ?? true, isLocation: notification.isNocationByLocation ?? false, location: notification.locationName ?? "", showingMessangeAfterTime: String(notification.showingMessangeAfterTime ?? ""), dateAndTime: notification.atTimeAndDate ?? "")
         return cell
     }
     
-
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard let notificationToDelete = notifications?[indexPath.row] else { return }
-            
-            do {
-                let realm = try Realm()
-                try realm.write {
-                    print("delete notification from Realm")
-                    realm.delete(notificationToDelete)
-                }
-                
-                tableView.deleteRows(at: [indexPath], with: .automatic)
-                backgroundImage()
-            } catch let error {
-                print("Failed to delete notification from Realm: \(error)")
-                return
+            Alert.showConfirmationAlert(title: "Alart", message: "Are you sure.you want to delete this notification?", uiView: self){
+                self.storedNotificationViewModel.deleteUpComingNotification(at: indexPath.row)
             }
-            
         }
     }
+    
 }

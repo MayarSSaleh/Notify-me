@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WH8-OI-AGw">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
@@ -10,6 +10,64 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Old-->
+        <scene sceneID="cZ3-zj-b7D">
+            <objects>
+                <viewController storyboardIdentifier="OldNotificationsViewController" id="Dd6-cW-4of" customClass="OldNotificationsViewController" customModule="Notify_me" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aXn-xY-YNd">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FYJ-VM-wgF">
+                                <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                                <items>
+                                    <navigationItem title="Notify me" id="MAo-vK-371"/>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="tgb-Qf-gEt">
+                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Pan-dM-CWH"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="FYJ-VM-wgF" firstAttribute="top" secondItem="Pan-dM-CWH" secondAttribute="top" id="3Ur-cq-C7e"/>
+                            <constraint firstItem="tgb-Qf-gEt" firstAttribute="trailing" secondItem="Pan-dM-CWH" secondAttribute="trailing" id="4Q8-2k-0Fh"/>
+                            <constraint firstItem="tgb-Qf-gEt" firstAttribute="top" secondItem="FYJ-VM-wgF" secondAttribute="bottom" id="DMI-2S-Hfl"/>
+                            <constraint firstItem="FYJ-VM-wgF" firstAttribute="leading" secondItem="tgb-Qf-gEt" secondAttribute="leading" id="E6S-4D-442"/>
+                            <constraint firstItem="tgb-Qf-gEt" firstAttribute="bottom" secondItem="Pan-dM-CWH" secondAttribute="bottom" id="G0Y-hA-WUU"/>
+                            <constraint firstItem="FYJ-VM-wgF" firstAttribute="trailing" secondItem="tgb-Qf-gEt" secondAttribute="trailing" id="YNa-kc-aVk"/>
+                            <constraint firstItem="tgb-Qf-gEt" firstAttribute="leading" secondItem="Pan-dM-CWH" secondAttribute="leading" id="loB-Yq-KaD"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Old" id="eNP-Vk-gGV"/>
+                    <connections>
+                        <outlet property="table" destination="tgb-Qf-gEt" id="buj-CD-Zgp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bzy-M6-km1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1032.824427480916" y="-23.239436619718312"/>
+        </scene>
+        <!--Tab View Controller-->
+        <scene sceneID="CRW-ov-Nnp">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="exF-DK-uvw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tabBarController storyboardIdentifier="tabViewController" id="WH8-OI-AGw" customClass="tabViewController" customModule="Notify_me" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HOl-H2-Ypd">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="PbM-WE-Cvd"/>
+                        <segue destination="Dd6-cW-4of" kind="relationship" relationship="viewControllers" id="JY0-EF-kKN"/>
+                    </connections>
+                </tabBarController>
+            </objects>
+            <point key="canvasLocation" x="-65" y="-423"/>
+        </scene>
         <!--Notify me-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -21,7 +79,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EyX-rc-Qe1">
                                 <rect key="frame" x="0.0" y="55" width="393" height="44"/>
                                 <items>
-                                    <navigationItem title="All notifications " id="7ru-Cw-eBk">
+                                    <navigationItem title="Notify me" id="7ru-Cw-eBk">
                                         <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="z9O-0D-VgS">
                                             <connections>
                                                 <action selector="add:" destination="BYZ-38-t0r" id="aeV-1J-44v"/>
@@ -47,6 +105,7 @@
                             <constraint firstItem="EyX-rc-Qe1" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="s6F-9S-cSw"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Up coming" id="tT2-fz-mzj"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Notify me" id="3p7-8K-Oti">
                         <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="4bq-zX-UAK"/>
@@ -58,7 +117,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1973.2824427480916" y="-34.507042253521128"/>
+            <point key="canvasLocation" x="1024" y="-896"/>
         </scene>
         <!--Time View Controller-->
         <scene sceneID="gnL-rn-d4x">
@@ -131,7 +190,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text=" 50" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fOh-9o-Faw">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="20" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fOh-9o-Faw">
                                 <rect key="frame" x="114" y="341" width="252" height="40"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -313,13 +372,13 @@
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

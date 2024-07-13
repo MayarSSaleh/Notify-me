@@ -29,7 +29,8 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
     var datePicker = UIDatePicker()
     var mapView = MKMapView()
     let geocoder = CLGeocoder()
-
+    var notificationID : String = ""
+    
     var locationManager = CLLocationManager()
     var chosenLocation: CLLocationCoordinate2D?
     
@@ -50,6 +51,12 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
         setUp()
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        notificationID = UUID().uuidString
+    }
+    
     private func setUp() {
         contentOfNOtifiction.layer.borderColor = UIColor.black.cgColor
         contentOfNOtifiction.layer.borderWidth = 1
@@ -64,7 +71,6 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
             pageTitle.title = "Add notification at a location"
             mapView.showsUserLocation = true
             labelBesidPicker.text = "Around:"
-            
             
             view.addSubview(raduis)
 
@@ -84,6 +90,8 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
                 labelBesidPicker.text = "At:"
                 pageTitle.title = "Add notification at a specific time"
                 datePicker.datePickerMode = .dateAndTime
+                datePicker.minimumDate = Date() // This ensures only future dates and times can be selected
+
                 view.addSubview(datePicker)
                 addDatePickerConstraints(picker: datePicker)
             }
@@ -149,7 +157,7 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
             notificationContent.title = title
             notificationContent.body = body
             notificationContent.sound = .default
-            notificationContent.userInfo = ["title": notificationContent.title, "body": notificationContent.body]
+            notificationContent.userInfo = ["title": notificationContent.title, "body": notificationContent.body , "self.notificationID" : self.notificationID]
 
             var trigger: UNNotificationTrigger?
 
@@ -192,8 +200,9 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
                     afterTime = timeIntervals[selectedRow]
                     let timeInterval = timeIntervals[selectedRow] * 60
                     
-                    trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timeInterval), repeats: false)
-                    
+//                    trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timeInterval), repeats: false)
+                    trigger = UNTimeIntervalNotificationTrigger(timeInterval: 7, repeats: false)
+
                     
                 } else {
                     let selectedDate = datePicker.date
@@ -207,8 +216,9 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
 
         private func scheduleNotification(content: UNMutableNotificationContent, trigger: UNNotificationTrigger?) {
             guard let trigger = trigger else { return }
-
-            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+            
+            
+            let request = UNNotificationRequest(identifier:notificationID , content: content, trigger: trigger)
             userNotificationCenter.add(request) { [weak self] error in
                 guard let self = self else { return }
                 if let error = error {
@@ -217,13 +227,15 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
                     DispatchQueue.main.async {
                         self.viewModel.saveNotification(
                             title: content.title,
+                            notificationIdentifier: self.notificationID,
                             content: content.body,
                             repeatNotification: false,
                             isNotificationByTime: self.comeAsTimeInterval,
                             isNocationByLocation: self.comeAsMap,
+                            showingMessangeAfterTime: " Notification afte \(DateFormating.getCurrentDateTime()) by: \(self.afterTime ?? 0) minutes",
+                            createdDate: Date(),
                             locationName: self.notificationLocationName,
-//                            afterTime: self.afterTime,
-                            afterTime: " Notification afte \(self.getCurrentDateTime()) by: \(self.afterTime ?? 0) minutes",
+                            afterTime: self.afterTime ?? 0,
                             atTimeAndDate: self.dateAndTime
                         )
 
@@ -236,31 +248,9 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
                 }
             }
         }
-    private func formatDateAndTime(from dateComponents: DateComponents) -> String? {
-        let calendar = Calendar.current
-        guard let date = calendar.date(from: dateComponents) else { return nil }
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .short
-        
-        return dateFormatter.string(from: date)
-    }
-
-    func getCurrentDateTime() -> String {
-        let currentDate = Date()
-        
-        // Create a date formatter
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd , HH:mm "
-        
-        // Convert date to string
-        let dateTimeString = formatter.string(from: currentDate)
-        
-        print("Current date and time: \(dateTimeString)")
-        
-        return dateTimeString
-    }
+    
+ 
+    
     @IBAction func back(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
