@@ -18,8 +18,8 @@ class ViewController: UIViewController {
         table.dataSource = self
         table.delegate = self
         table.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
-        
-        storedNotificationViewModel.onNotificationsUpdated = { [weak self] in
+
+        storedNotificationViewModel.upComingNotificationPreparation = { [weak self] in
             DispatchQueue.main.async {
                 self?.table.reloadData()
                 self?.backgroundImage()
@@ -45,19 +45,19 @@ class ViewController: UIViewController {
     }
     
     @IBAction func add(_ sender: Any) {
-        let alert = UIAlertController(title: "Choose Notification Type", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Choose Notification Type: ", message: nil, preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "At Time", style: .default, handler: { _ in
-            self.navigateToCalenderViewModel()
-        }))
-        alert.addAction(UIAlertAction(title: "At Location", style: .default, handler: { _ in
-            self.navigateToLocationViewModel()
-        }))
         alert.addAction(UIAlertAction(title: "After a while", style: .default, handler: { _ in
             self.navigateToIntervalViewModel()
         }))
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "At Date ", style: .default, handler: { _ in
+            self.navigateToCalenderViewModel()
+        }))
+       
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+        
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -77,9 +77,10 @@ class ViewController: UIViewController {
 
 // navigation
 extension ViewController {
+    
   private func navigateToIntervalViewModel() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let vc = storyboard.instantiateViewController(withIdentifier: "TimeViewController") as? TimeViewController {
+        if let vc = storyboard.instantiateViewController(withIdentifier: "TimeViewController") as? setNotificationDetails {
             vc.comeAsTimeInterval = true
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: true, completion: nil)
@@ -88,24 +89,15 @@ extension ViewController {
     
     private  func navigateToCalenderViewModel() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let vc = storyboard.instantiateViewController(withIdentifier: "TimeViewController") as? TimeViewController {
+        if let vc = storyboard.instantiateViewController(withIdentifier: "TimeViewController") as? setNotificationDetails {
             vc.comeAsTimeInterval = false
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: true, completion: nil)
         }
     }
-    
-    private func navigateToLocationViewModel() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let vc = storyboard.instantiateViewController(withIdentifier: "TimeViewController") as? TimeViewController {
-            vc.comeAsMap = true
-            vc.modalPresentationStyle = .fullScreen
-            present(vc, animated: true, completion: nil)
-        }
-    }
-    
 }
 
+// show upcoming notification in table
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140

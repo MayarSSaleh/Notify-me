@@ -8,6 +8,7 @@
 import RealmSwift
 
 class CreateNotificationViewModel {
+    
     private var realm: Realm
 
     init(realm: Realm = try! Realm()) {
@@ -15,6 +16,7 @@ class CreateNotificationViewModel {
     }
 
     func saveNotification(title: String, notificationIdentifier:String, content: String, repeatNotification: Bool, isNotificationByTime: Bool?, isNocationByLocation: Bool?,showingMessangeAfterTime:String?,createdDate:Date? , locationName: String?, afterTime: Int?, atTimeAndDate: String?) {
+        
         let notification = NotificationObject()
         notification.title = title
         notification.content = content
@@ -32,4 +34,5 @@ class CreateNotificationViewModel {
             realm.add(notification)
         }
     }
+    
 }

@@ -58,22 +58,21 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let userInfo = response.notification.request.content.userInfo
 
         
-//        if let notificationID = userInfo["notificationID"] as? String {
-//            print(" find the primary key")
-//              do {
-//                  let realm = try Realm()
-//                  if let notification = realm.object(ofType: NotificationObject.self, forPrimaryKey: notificationID) {
-//                      try realm.write {
-//                          print( " notification.isDone  \(notification.isDone ) " )
-//                          notification.isDone = true
-//                          print( " notification.isDone  \(notification.isDone ) " )
-//
-//                      }
-//                  }
-//              } catch let error {
-//                  print("Failed to update notification in Realm: \(error)")
-//              }
-//          }
+        if let notificationID = userInfo["notificationID"] as? String {
+            print(" find the primary key\(notificationID)")
+              do {
+                  let realm = try Realm()
+                  if let notification = realm.object(ofType: NotificationObject.self, forPrimaryKey: notificationID) {
+                      try realm.write {
+                          print( " notification.isDone before change \(notification.isDone ) " )
+                          notification.isDone = true
+                          print( " notification.isDone  \(notification.isDone ) " )
+                      }
+                  }
+              } catch let error {
+                  print("Failed to update notification in Realm: \(error)")
+              }
+          }
           
         
         let title = userInfo["title"] as? String ?? "No Title"
@@ -85,6 +84,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             vc.notificationTitle = title
             vc.notificationContent = content
             vc.modalPresentationStyle = .fullScreen
+        
+        
+        print("show notification details ")
+
+        
+        
         // Present the view controller
              if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
                  rootVC.present(vc, animated: true, completion: nil)

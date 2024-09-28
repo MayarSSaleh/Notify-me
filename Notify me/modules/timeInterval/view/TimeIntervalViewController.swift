@@ -7,10 +7,8 @@
 
 import UIKit
 import UserNotifications
-import CoreLocation
-import MapKit
 
-class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CLLocationManagerDelegate {
+class setNotificationDetails: UIViewController, UNUserNotificationCenterDelegate {
     
     @IBOutlet weak var notificationTitle: UITextView!
     @IBOutlet weak var contentOfNOtifiction: UITextView!
@@ -27,13 +25,7 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
     var dateAndTime : String?
     var minutesPicker = UIPickerView()
     var datePicker = UIDatePicker()
-    var mapView = MKMapView()
-    let geocoder = CLGeocoder()
     var notificationID : String = ""
-    
-    var locationManager = CLLocationManager()
-    var chosenLocation: CLLocationCoordinate2D?
-    
     let timeIntervals = [1, 10, 20, 30, 40, 50, 60]
     let intervalLabels = ["1 minute", "10 minutes", "20 minutes", "30 minutes", "40 minutes", "50 minutes", "60 minutes"]
     
@@ -44,10 +36,6 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
         self.userNotificationCenter.delegate = self
         minutesPicker.dataSource = self
         minutesPicker.delegate = self
-        mapView.delegate = self
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        
         setUp()
     }
     
@@ -64,52 +52,25 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
         notificationTitle.layer.borderWidth = 1
         raduis.layer.borderColor = UIColor.black.cgColor
         raduis.layer.borderWidth = 1
-        
         add.layer.cornerRadius = 12
+        raduis.isHidden = true
         
-        if comeAsMap {
-            pageTitle.title = "Add notification at a location"
-            mapView.showsUserLocation = true
-            labelBesidPicker.text = "Around:"
-            
-            view.addSubview(raduis)
-
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleMapTap(_:)))
-              mapView.addGestureRecognizer(tapGesture)
-            view.addSubview(mapView)
-            addMapConstraints(mapView: mapView)
-        } else {
-            raduis.isHidden = true
-            if comeAsTimeInterval {
+        if comeAsTimeInterval {
                 labelBesidPicker.text = "After:"
-                pageTitle.title = "Add notification after a time"
+                pageTitle.title = "Add notification after a while "
                 minutesPicker.selectRow(3, inComponent: 0, animated: false)
                 view.addSubview(minutesPicker)
                 addPickerConstraints(picker: minutesPicker)
             } else {
-                labelBesidPicker.text = "At:"
-                pageTitle.title = "Add notification at a specific time"
+                labelBesidPicker.text = "Date:"
+                pageTitle.title = "Add notification at Date"
                 datePicker.datePickerMode = .dateAndTime
                 datePicker.minimumDate = Date() // This ensures only future dates and times can be selected
-
                 view.addSubview(datePicker)
                 addDatePickerConstraints(picker: datePicker)
             }
-        }
     }
     
-    @objc func handleMapTap(_ gestureRecognizer: UITapGestureRecognizer) {
-        let locationInView = gestureRecognizer.location(in: mapView)
-        let tappedCoordinate = mapView.convert(locationInView, toCoordinateFrom: mapView)
-        chosenLocation = tappedCoordinate
-        
-        mapView.removeAnnotations(mapView.annotations)
-        
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = tappedCoordinate
-        mapView.addAnnotation(annotation)
-    }
-
     private func addPickerConstraints(picker: UIView) {
         picker.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -131,22 +92,8 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
         ])
     }
     
-    private func addMapConstraints(mapView: UIView) {
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            contentOfNOtifiction.topAnchor.constraint(equalTo: notificationTitle.bottomAnchor, constant: 40),
-            mapView.topAnchor.constraint(equalTo: labelBesidPicker.bottomAnchor, constant: 20),
-            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            mapView.bottomAnchor.constraint(equalTo: add.topAnchor, constant: -20),
-            add.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:-20)
-        ])
-    }
-    
-  
     
     @IBAction func addNotification(_ sender: Any) {
-    
         guard let title = notificationTitle.text, !title.isEmpty,
                   let body = contentOfNOtifiction.text, !body.isEmpty else {
                 Alert.showAlert(title: "Please enter notification title and content", uiView: self)
@@ -161,69 +108,37 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
 
             var trigger: UNNotificationTrigger?
 
-            if comeAsMap {
-                guard let chosenLocation = chosenLocation else {
-                    Alert.showAlert(title: "Please select a location on the map", uiView: self)
-                    return
-                }
-
-                guard let radiusText = raduis.text, let radiusValue = Double(radiusText) else {
-                    Alert.showAlert(title: "Please enter a valid radius for the region", uiView: self)
-                    return
-                }
-
-                add.isEnabled = false
-
-                let region = CLCircularRegion(center: chosenLocation, radius: radiusValue, identifier: UUID().uuidString)
-                region.notifyOnEntry = true
-                region.notifyOnExit = false
-                trigger = UNLocationNotificationTrigger(region: region, repeats: true)
-
-                // Reverse Geocoding to get location name
-                let location = CLLocation(latitude: chosenLocation.latitude, longitude: chosenLocation.longitude)
-                geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
-                    guard let self = self else { return }
-                    if let error = error {
-                        print("Reverse geocode failed: \(error.localizedDescription)")
-                        return
-                    }
-
-                    if let placemark = placemarks?.first {
-                        self.notificationLocationName = "\(placemark.name ?? ""), \(placemark.locality ?? ""), \(placemark.country ?? "")"
-                    }
-
-                    self.scheduleNotification(content: notificationContent, trigger: trigger)
-                }
-            } else {
                 if comeAsTimeInterval {
                     let selectedRow = minutesPicker.selectedRow(inComponent: 0)
                     afterTime = timeIntervals[selectedRow]
                     let timeInterval = timeIntervals[selectedRow] * 60
                     
 //                    trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timeInterval), repeats: false)
+                    // for testing appear after 7 second
                     trigger = UNTimeIntervalNotificationTrigger(timeInterval: 7, repeats: false)
-
-                    
                 } else {
                     let selectedDate = datePicker.date
                     let triggerDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: selectedDate)
                     dateAndTime = "\(triggerDate)"
+                    print("dateAndTime at creating \(dateAndTime) ")
                     trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
                 }
                 scheduleNotification(content: notificationContent, trigger: trigger)
             }
-        }
+        
 
         private func scheduleNotification(content: UNMutableNotificationContent, trigger: UNNotificationTrigger?) {
             guard let trigger = trigger else { return }
             
             
             let request = UNNotificationRequest(identifier:notificationID , content: content, trigger: trigger)
+            
             userNotificationCenter.add(request) { [weak self] error in
                 guard let self = self else { return }
                 if let error = error {
                     print("Notification Error: ", error)
                 } else {
+                    print(" ")
                     DispatchQueue.main.async {
                         self.viewModel.saveNotification(
                             title: content.title,
@@ -249,17 +164,14 @@ class TimeViewController: UIViewController, UNUserNotificationCenterDelegate, CL
             }
         }
     
- 
-    
+     
     @IBAction func back(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
-
 }
 
 // MARK: - UIPickerViewDataSource & UIPickerViewDelegate methods
-extension TimeViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+extension setNotificationDetails: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -272,11 +184,3 @@ extension TimeViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         return intervalLabels[row]
     }
  }
-   
-extension TimeViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if let annotation = view.annotation {
-            chosenLocation = annotation.coordinate
-        }
-    }
-}

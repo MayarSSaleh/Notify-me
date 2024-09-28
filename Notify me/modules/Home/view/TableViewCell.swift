@@ -25,22 +25,19 @@ class TableViewCell: UITableViewCell {
          title.text = titleOfNotification
          content.text = contentOfNotification
         
-        if isLocation{
-            print( " loacation ")
-            type.text = location
-        }else {
             if isTime{
                 print( " is time true")
+                print( " showingMessangeAfterTime \(showingMessangeAfterTime)")
 
                 type.text = showingMessangeAfterTime
             }else{
+// drop last 20 as is about leapmonth, i do not want to show it
                 let modified = dateAndTime.dropLast(20)
-                print("m \(modified)")
+                print(" dateAndTime atset up function  \(modified)")
                 type.text = String(modified)
             }
-        }
-        
-       //  repeatValueWithInterval.text = repeatValue
+                
+      //   repeatValueWithInterval.text = " here repeat value "
     }
 
   

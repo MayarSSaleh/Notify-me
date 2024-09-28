@@ -12,23 +12,10 @@ import RealmSwift
 class StoredNotificationViewModel {
     
     var notifications: Results<NotificationObject>?
-    var upComingNotifications: [NotificationObject] = []
-    var onNotificationsUpdated: (() -> Void)?
     
+  
     var OldNotificationsReady: (() -> Void)?
     var oldNotifications :  [NotificationObject] = []
-    
-    func fetchUpComingNotifications() {
-        do {
-            let realm = try Realm()
-            notifications = realm.objects(NotificationObject.self)
-            
-            showUpcoming()
-            onNotificationsUpdated?()
-        } catch let error {
-            print("Failed to fetch notifications from Realm: \(error)")
-        }
-    }
     func fetcholdNotifications() {
         do {
             let realm = try Realm()
@@ -40,50 +27,71 @@ class StoredNotificationViewModel {
         }
     }
 
+    
+ 
+    var upComingNotifications: [NotificationObject] = []
+    var upComingNotificationPreparation: (() -> Void)?
+    
+    func fetchUpComingNotifications() {
+        do {
+            let realm = try Realm()
+            notifications = realm.objects(NotificationObject.self)
+            
+            showUpcoming()
+            upComingNotificationPreparation?()
+        } catch let error {
+            print("Failed to fetch notifications from Realm: \(error)")
+        }
+    }
+    
+    
+  
     private func showUpcoming() {
         upComingNotifications.removeAll()
-        let now = Date()
-        
         for notification in notifications! {
-            if notification.isNocationByLocation == true {
-                upComingNotifications.append(notification)
-            } else {
-                if let atTimeAndDateStr = notification.atTimeAndDate,
-                   let atTimeAndDate = DateFormating.parseDate(from: atTimeAndDateStr),
-                   atTimeAndDate > now {
+                print(" in show up coming function notification.isDone == \(notification.isDone) ")
+                if notification.isDone == false{
                     upComingNotifications.append(notification)
-                } else if let afterTime = notification.afterTime,
-                          let createdDate = notification.createdDate {
-                    if createdDate.addingTimeInterval(TimeInterval(afterTime * 60)) > now {
-                        upComingNotifications.append(notification)
-                    }
                 }
-            }
+            
+//            let now = Date()
+//                if let atTimeAndDateStr = notification.atTimeAndDate,
+//                   let atTimeAndDate = DateFormating.parseDate(from: atTimeAndDateStr),
+//                   atTimeAndDate > now {
+//                    upComingNotifications.append(notification)
+//                } else if let afterTime = notification.afterTime,
+//                          let createdDate = notification.createdDate {
+//                    if createdDate.addingTimeInterval(TimeInterval(afterTime * 60)) > now {
+//                        upComingNotifications.append(notification)
+//                    }
+//                }
+            
         }
-        onNotificationsUpdated?()
     }
     
     private func showOldNotifications() {
         oldNotifications.removeAll()
-        let now = Date()
         
         for notification in notifications! {
-            // make location always work
-            if notification.isNocationByLocation == true {
-            } else {
-                if let atTimeAndDateStr = notification.atTimeAndDate,
-                   let atTimeAndDate = DateFormating.parseDate(from: atTimeAndDateStr),
-                   atTimeAndDate < now {
-                    oldNotifications.append(notification)
-                } else if let afterTime = notification.afterTime,
-                          let createdDate = notification.createdDate {
-                    if createdDate.addingTimeInterval(TimeInterval(afterTime * 60)) < now {
-                        oldNotifications.append(notification)
-                    }
+             // check if done or not which changed when the user interact with the notification
+                if notification.isDone == true{
+                oldNotifications.append(notification)
                 }
-            }
+                
+//                let now = Date()
+//                if let atTimeAndDateStr = notification.atTimeAndDate,
+//                   let atTimeAndDate = DateFormating.parseDate(from: atTimeAndDateStr),
+//                   atTimeAndDate < now {
+//                    oldNotifications.append(notification)
+//                } else if let afterTime = notification.afterTime,
+//                          let createdDate = notification.createdDate {
+//                    if createdDate.addingTimeInterval(TimeInterval(afterTime * 60)) < now {
+//                        oldNotifications.append(notification)
+//                    }
+//                }
+            
         }
-        onNotificationsUpdated?()
+      //  upComingNotificationPreparation?()
     }
 
     func deleteUpComingNotification(at index: Int) {
@@ -97,7 +105,7 @@ class StoredNotificationViewModel {
                 realm.delete(notificationToDelete)
             }
             upComingNotifications.remove(at: index)
-            onNotificationsUpdated?()
+            upComingNotificationPreparation?()
         } catch let error {
             print("Failed to delete notification from Realm: \(error)")
         }
