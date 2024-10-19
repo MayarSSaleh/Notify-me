@@ -10,9 +10,8 @@ Notify Me is an iOS application that allows users to create notifications ( cont
 
 2- To create a new notification:
   * Tap the + button.
-  * Enter the content of the notification.
-  * Select either Time or Location for the type of notification.
-  * Set the specific time or location for the notification.
+  * Enter title and the content of the notification.
+  * Select either the type of notification.
   * Save the notification.
     
 3- View your created notifications in the main list.
