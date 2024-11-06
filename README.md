@@ -1,6 +1,8 @@
 # Notify-me
 Notify Me is an iOS application that allows users to create notifications ( content and when show) ,then revice notifiacion based on specification.
 
+# Technology and tools:
+ Swift, Local Push Notification, Realm, and Auto Layout.
 # Features
  * Time-based notifications: Set a notification to trigger at a specific time or after a specific time.
  * Custom notification content: Users can enter their own content for each notification.
