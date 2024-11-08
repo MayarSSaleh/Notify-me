@@ -26,6 +26,7 @@
 		7DB5EC632C3ACE2600E3F3E2 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB5EC612C3ACE2600E3F3E2 /* TableViewCell.swift */; };
 		7DB5EC642C3ACE2600E3F3E2 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DB5EC622C3ACE2600E3F3E2 /* TableViewCell.xib */; };
 		7DBAA41D2C3A085B0044B7CD /* Notifiaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBAA41C2C3A085B0044B7CD /* Notifiaction.swift */; };
+		7DE92F112CDDAA3300BCA8A3 /* LocalDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE92F102CDDAA3300BCA8A3 /* LocalDataBase.swift */; };
 		D64789F20F4F499125108D60 /* Pods_Notify_me.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA9F00C57E8B667BA176E8D /* Pods_Notify_me.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		7DB5EC612C3ACE2600E3F3E2 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		7DB5EC622C3ACE2600E3F3E2 /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		7DBAA41C2C3A085B0044B7CD /* Notifiaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifiaction.swift; sourceTree = "<group>"; };
+		7DE92F102CDDAA3300BCA8A3 /* LocalDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataBase.swift; sourceTree = "<group>"; };
 		9CA9F00C57E8B667BA176E8D /* Pods_Notify_me.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notify_me.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D689B1C5562CE2F1D9396136 /* Pods-Notify me.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notify me.release.xcconfig"; path = "Target Support Files/Pods-Notify me/Pods-Notify me.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,11 +91,11 @@
 		7D781E232C37C90F0012C399 /* Notify me */ = {
 			isa = PBXGroup;
 			children = (
-				7D781E562C381FB30012C399 /* utility */,
-				7D781E432C37F8D80012C399 /* services */,
 				7D781E3F2C37F88F0012C399 /* model */,
 				7D781E3E2C37F8830012C399 /* view */,
-				7D781E422C37F8CB0012C399 /* modules */,
+				7D781E4F2C37F9660012C399 /* viewModel */,
+				7DE92F0F2CDDAA2200BCA8A3 /* dataBase */,
+				7D781E562C381FB30012C399 /* utility */,
 				7D781E242C37C90F0012C399 /* AppDelegate.swift */,
 				7D781E262C37C90F0012C399 /* SceneDelegate.swift */,
 				7D781E2D2C37C9130012C399 /* Assets.xcassets */,
@@ -105,6 +107,10 @@
 		7D781E3E2C37F8830012C399 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				7D781E452C37F9080012C399 /* home */,
+				7DAFF30D2C430E6C002890F4 /* oldNotifications */,
+				7D781E4E2C37F9610012C399 /* addNotifcation */,
+				7D781E542C381DF60012C399 /* notificationDetails */,
 				7D781E2A2C37C90F0012C399 /* Main.storyboard */,
 				7D781E2F2C37C9130012C399 /* LaunchScreen.storyboard */,
 			);
@@ -119,34 +125,7 @@
 			path = model;
 			sourceTree = "<group>";
 		};
-		7D781E422C37F8CB0012C399 /* modules */ = {
-			isa = PBXGroup;
-			children = (
-				7DAFF30D2C430E6C002890F4 /* Old Notifications */,
-				7D781E542C381DF60012C399 /* NotificationDetails */,
-				7D781E4D2C37F9580012C399 /* timeInterval */,
-				7D781E442C37F9020012C399 /* Home */,
-			);
-			path = modules;
-			sourceTree = "<group>";
-		};
-		7D781E432C37F8D80012C399 /* services */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = services;
-			sourceTree = "<group>";
-		};
-		7D781E442C37F9020012C399 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				7D781E462C37F90C0012C399 /* viewModel */,
-				7D781E452C37F9080012C399 /* view */,
-			);
-			path = Home;
-			sourceTree = "<group>";
-		};
-		7D781E452C37F9080012C399 /* view */ = {
+		7D781E452C37F9080012C399 /* home */ = {
 			isa = PBXGroup;
 			children = (
 				7D781E282C37C90F0012C399 /* ViewController.swift */,
@@ -154,33 +133,16 @@
 				7DB5EC622C3ACE2600E3F3E2 /* TableViewCell.xib */,
 				7DAFF3062C42E1C0002890F4 /* tabViewController.swift */,
 			);
-			path = view;
+			path = home;
 			sourceTree = "<group>";
 		};
-		7D781E462C37F90C0012C399 /* viewModel */ = {
-			isa = PBXGroup;
-			children = (
-				7DAFF3082C42E3E9002890F4 /* storedNotificationViewContrroll.swift */,
-			);
-			path = viewModel;
-			sourceTree = "<group>";
-		};
-		7D781E4D2C37F9580012C399 /* timeInterval */ = {
-			isa = PBXGroup;
-			children = (
-				7D781E4F2C37F9660012C399 /* viewModel */,
-				7D781E4E2C37F9610012C399 /* view */,
-			);
-			path = timeInterval;
-			sourceTree = "<group>";
-		};
-		7D781E4E2C37F9610012C399 /* view */ = {
+		7D781E4E2C37F9610012C399 /* addNotifcation */ = {
 			isa = PBXGroup;
 			children = (
 				7D781E502C380D710012C399 /* Animation.swift */,
 				7D781E3A2C37D7410012C399 /* TimeIntervalViewController.swift */,
 			);
-			path = view;
+			path = addNotifcation;
 			sourceTree = "<group>";
 		};
 		7D781E4F2C37F9660012C399 /* viewModel */ = {
@@ -188,24 +150,17 @@
 			children = (
 				7D4ECCB32C3A1981003C204B /* CreateNotification.swift */,
 				7DAFF30A2C42EB5D002890F4 /* DateFormating.swift */,
+				7DAFF3082C42E3E9002890F4 /* storedNotificationViewContrroll.swift */,
 			);
 			path = viewModel;
 			sourceTree = "<group>";
 		};
-		7D781E542C381DF60012C399 /* NotificationDetails */ = {
-			isa = PBXGroup;
-			children = (
-				7D781E552C381E040012C399 /* view */,
-			);
-			path = NotificationDetails;
-			sourceTree = "<group>";
-		};
-		7D781E552C381E040012C399 /* view */ = {
+		7D781E542C381DF60012C399 /* notificationDetails */ = {
 			isa = PBXGroup;
 			children = (
 				7D781E522C381DE80012C399 /* NotificationDetails.swift */,
 			);
-			path = view;
+			path = notificationDetails;
 			sourceTree = "<group>";
 		};
 		7D781E562C381FB30012C399 /* utility */ = {
@@ -217,20 +172,20 @@
 			path = utility;
 			sourceTree = "<group>";
 		};
-		7DAFF30D2C430E6C002890F4 /* Old Notifications */ = {
-			isa = PBXGroup;
-			children = (
-				7DAFF30E2C430E77002890F4 /* view */,
-			);
-			path = "Old Notifications";
-			sourceTree = "<group>";
-		};
-		7DAFF30E2C430E77002890F4 /* view */ = {
+		7DAFF30D2C430E6C002890F4 /* oldNotifications */ = {
 			isa = PBXGroup;
 			children = (
 				7DAFF30F2C430E93002890F4 /* OldNotificationsViewController.swift */,
 			);
-			path = view;
+			path = oldNotifications;
+			sourceTree = "<group>";
+		};
+		7DE92F0F2CDDAA2200BCA8A3 /* dataBase */ = {
+			isa = PBXGroup;
+			children = (
+				7DE92F102CDDAA3300BCA8A3 /* LocalDataBase.swift */,
+			);
+			path = dataBase;
 			sourceTree = "<group>";
 		};
 		A8D3ED65B7BA8DB830B5DD3F /* Frameworks */ = {
@@ -380,6 +335,7 @@
 				7DB5EC632C3ACE2600E3F3E2 /* TableViewCell.swift in Sources */,
 				7D781E512C380D710012C399 /* Animation.swift in Sources */,
 				7DAFF3092C42E3E9002890F4 /* storedNotificationViewContrroll.swift in Sources */,
+				7DE92F112CDDAA3300BCA8A3 /* LocalDataBase.swift in Sources */,
 				7D781E3B2C37D7410012C399 /* TimeIntervalViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

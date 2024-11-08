@@ -114,8 +114,10 @@ class setNotificationDetails: UIViewController, UNUserNotificationCenterDelegate
                     let timeInterval = timeIntervals[selectedRow] * 60
                     
 //                    trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timeInterval), repeats: false)
+                    
+                    
                     // for testing appear after 7 second
-                    trigger = UNTimeIntervalNotificationTrigger(timeInterval: 7, repeats: false)
+                    trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
                 } else {
                     let selectedDate = datePicker.date
                     let triggerDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: selectedDate)
@@ -138,7 +140,6 @@ class setNotificationDetails: UIViewController, UNUserNotificationCenterDelegate
                 if let error = error {
                     print("Notification Error: ", error)
                 } else {
-                    print(" ")
                     DispatchQueue.main.async {
                         self.viewModel.saveNotification(
                             title: content.title,

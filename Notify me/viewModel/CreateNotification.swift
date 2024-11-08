@@ -5,16 +5,11 @@
 //  Created by mayar on 06/07/2024.
 //
 
-import RealmSwift
+import Foundation
+
 
 class CreateNotificationViewModel {
     
-    private var realm: Realm
-
-    init(realm: Realm = try! Realm()) {
-        self.realm = realm
-    }
-
     func saveNotification(title: String, notificationIdentifier:String, content: String, repeatNotification: Bool, isNotificationByTime: Bool?, isNocationByLocation: Bool?,showingMessangeAfterTime:String?,createdDate:Date? , locationName: String?, afterTime: Int?, atTimeAndDate: String?) {
         
         let notification = NotificationObject()
@@ -29,10 +24,10 @@ class CreateNotificationViewModel {
         notification.atTimeAndDate = atTimeAndDate
         notification.createdDate = createdDate
         notification.showingMessangeAfterTime = showingMessangeAfterTime
-
-        try! realm.write {
-            realm.add(notification)
-        }
+        
+        print("notificaiotn in save notification\(notification)" )
+        
+        LocalDataBase.shared.store(notification: notification)
     }
     
 }

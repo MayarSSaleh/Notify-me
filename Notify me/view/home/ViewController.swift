@@ -117,7 +117,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             Alert.showConfirmationAlert(title: "Alart", message: "Are you sure.you want to delete this notification?", uiView: self){
-                self.storedNotificationViewModel.deleteUpComingNotification(at: indexPath.row)
+                self.storedNotificationViewModel.deleteUpcomingNotification(at: indexPath.row)
             }
         }
     }

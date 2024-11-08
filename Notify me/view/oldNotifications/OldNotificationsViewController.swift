@@ -11,7 +11,6 @@ class OldNotificationsViewController: UIViewController {
 
     @IBOutlet weak var table: UITableView!
     
-  
     var storedNotificationViewModel = StoredNotificationViewModel()
     
     override func viewDidLoad() {
@@ -30,7 +29,7 @@ class OldNotificationsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        storedNotificationViewModel.fetcholdNotifications()
+        storedNotificationViewModel.fetchOldNotifications()
     }
     
     private func backgroundImage() {
