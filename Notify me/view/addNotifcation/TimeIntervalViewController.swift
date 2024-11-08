@@ -15,7 +15,7 @@ class setNotificationDetails: UIViewController, UNUserNotificationCenterDelegate
     @IBOutlet weak var add: UIButton!
     @IBOutlet weak var labelBesidPicker: UILabel!
     @IBOutlet weak var pageTitle: UINavigationItem!
-    @IBOutlet weak var raduis: UITextView!
+    @IBOutlet weak var afterOrAt: UITextView!
     
     var comeAsTimeInterval: Bool = true
     var comeAsMap: Bool = false
@@ -46,38 +46,37 @@ class setNotificationDetails: UIViewController, UNUserNotificationCenterDelegate
     }
     
     private func setUp() {
-        contentOfNOtifiction.layer.borderColor = UIColor.black.cgColor
-        contentOfNOtifiction.layer.borderWidth = 1
-        notificationTitle.layer.borderColor = UIColor.black.cgColor
-        notificationTitle.layer.borderWidth = 1
-        raduis.layer.borderColor = UIColor.black.cgColor
-        raduis.layer.borderWidth = 1
-        add.layer.cornerRadius = 12
-        raduis.isHidden = true
+        contentOfNOtifiction.layer.borderColor = UIColor.systemGray3.cgColor
+        contentOfNOtifiction.layer.borderWidth = 0.5
+        notificationTitle.layer.borderColor = UIColor.systemGray3.cgColor
+        notificationTitle.layer.borderWidth = 0.5
+        afterOrAt.layer.borderColor = UIColor.systemGray3.cgColor
+        afterOrAt.layer.borderWidth = 0.5
+        add.layer.cornerRadius = 20
+        afterOrAt.isHidden = true
         
         if comeAsTimeInterval {
                 labelBesidPicker.text = "After:"
                 pageTitle.title = "Add notification after a while "
                 minutesPicker.selectRow(3, inComponent: 0, animated: false)
                 view.addSubview(minutesPicker)
-                addPickerConstraints(picker: minutesPicker)
+                addMinutesPickerConstraints(picker: minutesPicker)
             } else {
                 labelBesidPicker.text = "Date:"
                 pageTitle.title = "Add notification at Date"
                 datePicker.datePickerMode = .dateAndTime
-                datePicker.minimumDate = Date() // This ensures only future dates and times can be selected
+                datePicker.minimumDate = Date()
                 view.addSubview(datePicker)
                 addDatePickerConstraints(picker: datePicker)
             }
     }
     
-    private func addPickerConstraints(picker: UIView) {
+    private func addMinutesPickerConstraints(picker: UIView) {
         picker.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            labelBesidPicker.topAnchor.constraint(equalTo: contentOfNOtifiction.bottomAnchor, constant: 80),
-            picker.topAnchor.constraint(equalTo: labelBesidPicker.topAnchor, constant: -100),
-            
-            picker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            picker.topAnchor.constraint(equalTo: contentOfNOtifiction.bottomAnchor, constant: 45),
+            picker.leadingAnchor.constraint(equalTo: labelBesidPicker.trailingAnchor, constant: 20),
+            labelBesidPicker.topAnchor.constraint(equalTo: picker.topAnchor, constant: 50),
             picker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             picker.heightAnchor.constraint(equalToConstant: 215)
         ])

@@ -20,7 +20,7 @@
 		7D781E582C381FD20012C399 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D781E572C381FD20012C399 /* Navigation.swift */; };
 		7D797C7E2C39642F005C9E76 /* Alart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D797C7D2C39642F005C9E76 /* Alart.swift */; };
 		7DAFF3072C42E1C0002890F4 /* tabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAFF3062C42E1C0002890F4 /* tabViewController.swift */; };
-		7DAFF3092C42E3E9002890F4 /* storedNotificationViewContrroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAFF3082C42E3E9002890F4 /* storedNotificationViewContrroll.swift */; };
+		7DAFF3092C42E3E9002890F4 /* getStoredNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAFF3082C42E3E9002890F4 /* getStoredNotification.swift */; };
 		7DAFF30B2C42EB5D002890F4 /* DateFormating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAFF30A2C42EB5D002890F4 /* DateFormating.swift */; };
 		7DAFF3102C430E93002890F4 /* OldNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAFF30F2C430E93002890F4 /* OldNotificationsViewController.swift */; };
 		7DB5EC632C3ACE2600E3F3E2 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB5EC612C3ACE2600E3F3E2 /* TableViewCell.swift */; };
@@ -47,7 +47,7 @@
 		7D781E572C381FD20012C399 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		7D797C7D2C39642F005C9E76 /* Alart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alart.swift; sourceTree = "<group>"; };
 		7DAFF3062C42E1C0002890F4 /* tabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tabViewController.swift; sourceTree = "<group>"; };
-		7DAFF3082C42E3E9002890F4 /* storedNotificationViewContrroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = storedNotificationViewContrroll.swift; sourceTree = "<group>"; };
+		7DAFF3082C42E3E9002890F4 /* getStoredNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getStoredNotification.swift; sourceTree = "<group>"; };
 		7DAFF30A2C42EB5D002890F4 /* DateFormating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormating.swift; sourceTree = "<group>"; };
 		7DAFF30F2C430E93002890F4 /* OldNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldNotificationsViewController.swift; sourceTree = "<group>"; };
 		7DB5EC612C3ACE2600E3F3E2 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -149,8 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				7D4ECCB32C3A1981003C204B /* CreateNotification.swift */,
-				7DAFF30A2C42EB5D002890F4 /* DateFormating.swift */,
-				7DAFF3082C42E3E9002890F4 /* storedNotificationViewContrroll.swift */,
+				7DAFF3082C42E3E9002890F4 /* getStoredNotification.swift */,
 			);
 			path = viewModel;
 			sourceTree = "<group>";
@@ -166,6 +165,7 @@
 		7D781E562C381FB30012C399 /* utility */ = {
 			isa = PBXGroup;
 			children = (
+				7DAFF30A2C42EB5D002890F4 /* DateFormating.swift */,
 				7D781E572C381FD20012C399 /* Navigation.swift */,
 				7D797C7D2C39642F005C9E76 /* Alart.swift */,
 			);
@@ -334,7 +334,7 @@
 				7D781E582C381FD20012C399 /* Navigation.swift in Sources */,
 				7DB5EC632C3ACE2600E3F3E2 /* TableViewCell.swift in Sources */,
 				7D781E512C380D710012C399 /* Animation.swift in Sources */,
-				7DAFF3092C42E3E9002890F4 /* storedNotificationViewContrroll.swift in Sources */,
+				7DAFF3092C42E3E9002890F4 /* getStoredNotification.swift in Sources */,
 				7DE92F112CDDAA3300BCA8A3 /* LocalDataBase.swift in Sources */,
 				7D781E3B2C37D7410012C399 /* TimeIntervalViewController.swift in Sources */,
 			);
